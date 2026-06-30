@@ -2160,12 +2160,13 @@ export function MenuSection({ className }: MenuSectionProps) {
                       <div className="flex items-center gap-3 min-w-0">
                         {/* Mini image thumbnail */}
                         <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-latte-light/25 flex-shrink-0 border border-border-taupe/20 p-1">
+                          <div className="absolute inset-0.5 bg-gradient-to-tr from-amber-500/30 to-yellow-500/20 rounded-full blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                           <Image
                             src={item.image}
                             alt={item.name}
                             fill
                             sizes="48px"
-                            className="object-contain p-0.5 group-hover:scale-110 transition-transform duration-300"
+                            className="object-contain p-0.5 group-hover:scale-110 transition-transform duration-300 z-10"
                           />
                         </div>
                         <div className="min-w-0">

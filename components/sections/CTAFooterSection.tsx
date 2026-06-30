@@ -70,9 +70,17 @@ export function CTAFooterSection({
         
         {/* Brand */}
         <div className="flex items-center gap-3">
-          <span className="text-3xl">🍊</span>
+          <div className="relative w-12 h-12 rounded-full overflow-hidden border border-border-taupe/35">
+            <Image
+              src="/images/logo/logo.png"
+              alt="CAM CAM Logo"
+              fill
+              sizes="48px"
+              className="object-cover"
+            />
+          </div>
           <div>
-            <span className="font-serif font-black text-white text-lg tracking-widest uppercase">CAM CAM</span>
+            <span className="font-serif font-black text-white text-lg tracking-widest uppercase block">CAM CAM</span>
             <p className="mt-0.5 text-xs text-paper-warm/50 font-medium">
               {lang === "vi" ? "Cà phê & Trà boutique mộc mạc" : "Rustic Coffee & Tea Boutique"}
             </p>

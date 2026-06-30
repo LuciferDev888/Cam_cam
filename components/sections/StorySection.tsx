@@ -46,11 +46,14 @@ export function StorySection({
           <div
             style={{ transitionDelay: "0ms" }}
             className={cn(
-              "lg:col-span-6 relative flex justify-center animate-slide-in-left duration-700",
+              "lg:col-span-6 relative flex justify-center animate-slide-in-left duration-700 group",
               isInView && "in-view"
             )}
           >
-            <div className="relative w-full aspect-[4/3] md:aspect-[16/10] lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-vintage-lg border-[6px] border-paper-warm">
+            {/* Glowing Aura Sparkle behind image */}
+            <div className="aura-sparkle opacity-100 scale-105 pointer-events-none" />
+
+            <div className="relative w-full aspect-[4/3] md:aspect-[16/10] lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-vintage-lg border-[6px] border-paper-warm z-10">
               <Image
                 src={bgImage}
                 alt="CAM CAM Cozy Space"

@@ -126,7 +126,7 @@ export function FeaturedProducts({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           {/* Column 1: Info and Story (Columns 1-4) - Sequential left-to-right delays */}
-          <div className="lg:col-span-4 space-y-6">
+          <div className="lg:col-span-4 space-y-6 text-center lg:text-left flex flex-col items-center lg:items-start">
             
             {/* Step Indicator */}
             <div
@@ -254,8 +254,8 @@ export function FeaturedProducts({
                 className={cn(
                   "relative w-4/5 h-4/5 flex items-center justify-center transition-all duration-500 transform z-10",
                   isTransitioning
-                    ? "opacity-0 scale-75 rotate-12"
-                    : "opacity-100 scale-100 rotate-0 animate-float-sway"
+                    ? "opacity-0"
+                    : "opacity-100 animate-float-sway"
                 )}
               >
                 <Image

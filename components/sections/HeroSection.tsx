@@ -161,7 +161,7 @@ export function HeroSection() {
             <span
               style={{ transitionDelay: "350ms" }}
               className={cn(
-                "block text-4xl sm:text-5xl md:text-6xl lg:text-7xl whitespace-nowrap animate-slide-in-left duration-700",
+                "block text-4xl sm:text-5xl md:text-6xl lg:text-7xl whitespace-normal md:whitespace-nowrap animate-slide-in-left duration-700",
                 isInView && "in-view"
               )}
             >
@@ -170,7 +170,7 @@ export function HeroSection() {
             <span
               style={{ transitionDelay: "600ms" }}
               className={cn(
-                "block text-4xl sm:text-5xl md:text-6xl lg:text-7xl whitespace-nowrap mt-2 text-olive-primary animate-slide-in-left duration-700",
+                "block text-4xl sm:text-5xl md:text-6xl lg:text-7xl whitespace-normal md:whitespace-nowrap mt-2 text-olive-primary animate-slide-in-left duration-700",
                 isInView && "in-view"
               )}
             >

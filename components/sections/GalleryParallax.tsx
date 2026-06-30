@@ -86,7 +86,7 @@ export function GalleryParallax() {
                 className="w-[180px] h-[125px] md:w-[250px] md:h-[170px] flex-shrink-0 relative overflow-hidden rounded-2xl border border-border-taupe/40 bg-paper-warm/65 shadow-vintage-sm flex items-center justify-center p-3 group hover:border-olive-primary/50 transition-colors"
               >
                 {/* Glowing Aura Sparkle behind image */}
-                <div className="aura-sparkle opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="aura-sparkle opacity-30 group-hover:opacity-100 transition-opacity duration-500" />
                 
                 {/* Centered Image */}
                 <div className="relative w-4/5 h-4/5 z-10 flex items-center justify-center">
@@ -116,7 +116,7 @@ export function GalleryParallax() {
                 className="w-[180px] h-[125px] md:w-[250px] md:h-[170px] flex-shrink-0 relative overflow-hidden rounded-2xl border border-border-taupe/40 bg-paper-warm/65 shadow-vintage-sm flex items-center justify-center p-3 group hover:border-olive-primary/50 transition-colors"
               >
                 {/* Glowing Aura Sparkle behind image */}
-                <div className="aura-sparkle opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="aura-sparkle opacity-30 group-hover:opacity-100 transition-opacity duration-500" />
 
                 {/* Centered Image */}
                 <div className="relative w-4/5 h-4/5 z-10 flex items-center justify-center">
