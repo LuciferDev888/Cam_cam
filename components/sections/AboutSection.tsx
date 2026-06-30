@@ -50,25 +50,26 @@ export function AboutSection() {
             </p>
           </div>
 
-          {/* Spacer to let the background image shine in the middle (Columns 5-6) */}
-          <div className="hidden lg:block lg:col-span-2" />
+          {/* Spacer to let the background image shine in the middle (Column 5) */}
+          <div className="hidden lg:block lg:col-span-1" />
 
-          {/* Handcrafted highlights (Columns 7-12 - Red Box Area) */}
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-3 gap-4 flex items-center">
+          {/* Handcrafted highlights (Columns 6-12 - Red Box Area) */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 flex items-center">
             {t.highlights.map((item, index) => (
               <div
                 key={index}
                 className={cn(
                   "p-5 py-8 bg-latte-light/45 rounded-3xl border border-border-taupe/40 shadow-vintage-sm hover:border-olive-primary/50 transition-vintage hover:shadow-vintage-md group flex flex-col justify-between min-h-[300px] animate-slide-up duration-700",
                   index === 0 && "delay-100",
-                  index === 1 && "delay-300",
-                  index === 2 && "delay-500",
+                  index === 1 && "delay-200",
+                  index === 2 && "delay-300",
+                  index === 3 && "delay-400",
                   isInView && "in-view"
                 )}
               >
                 <div>
                   <div className="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300 inline-block">
-                    {index === 0 ? "☕" : index === 1 ? "🍃" : "🏛️"}
+                    {index === 0 ? "☕" : index === 1 ? "🍃" : index === 2 ? "🏛️" : "🌱"}
                   </div>
                   <h3 className="text-lg font-serif font-bold text-espresso-dark mb-3 leading-tight">
                     {item.title}

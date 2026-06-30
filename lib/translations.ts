@@ -15,7 +15,8 @@ export const translations = {
       highlights: [
         { title: "Rang Mộc Thủ Công", text: "Hạt cà phê chín đỏ được rang tay từng mẻ nhỏ, giữ trọn vị béo ngậy và hương thơm nguyên bản." },
         { title: "Trà Hoa Hữu Cơ", text: "Lá trà được thu hái thủ công từ các đồi chè hữu cơ cao nguyên Thái Nguyên và Lâm Đồng." },
-        { title: "Không Gian Sensory", text: "Một không gian ấm cúng với nền nhạc acoustic dịu nhẹ, mùi hương gỗ mộc quyện hương tinh dầu cam." }
+        { title: "Không Gian Sensory", text: "Một không gian ấm cúng với nền nhạc acoustic dịu nhẹ, mùi hương gỗ mộc quyện hương tinh dầu cam." },
+        { title: "Bảo Vệ Môi Trường", text: "Nói không với nhựa. CAM CAM ưu tiên sử dụng cốc tách gốm sứ mộc mạc và chai thủy tinh bảo vệ thiên nhiên." }
       ]
     },
     featured: {
@@ -116,7 +117,8 @@ export const translations = {
       highlights: [
         { title: "Handcrafted Roasting", text: "Red coffee beans are roasted by hand in small batches, preserving their rich creaminess and original aroma." },
         { title: "Organic Flower Tea", text: "Tea leaves are hand-picked from the organic highlands of Thai Nguyen and Lam Dong." },
-        { title: "Sensory Space", text: "A cozy space with soft acoustic music and the warm scent of cedarwood blended with orange oil." }
+        { title: "Sensory Space", text: "A cozy space with soft acoustic music and the warm scent of cedarwood blended with orange oil." },
+        { title: "Eco Friendly", text: "Zero plastic policy. We prioritize rustic ceramic cups and reusable glass bottles to protect nature." }
       ]
     },
     featured: {
