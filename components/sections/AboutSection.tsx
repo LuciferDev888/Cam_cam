@@ -50,11 +50,8 @@ export function AboutSection() {
             </p>
           </div>
 
-          {/* Spacer to let the background image shine in the middle (Column 5) */}
-          <div className="hidden lg:block lg:col-span-1" />
-
-          {/* Handcrafted highlights (Columns 6-12 - Red Box Area) */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 flex items-center">
+          {/* Handcrafted highlights (Columns 5-12 - Red Box Area) */}
+          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {t.highlights.map((item, index) => (
               <div
                 key={index}
