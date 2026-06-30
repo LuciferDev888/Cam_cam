@@ -25,7 +25,7 @@
       {
         "id": "fe1",
         "name": "Cà Phê Muối",
-        "price": "45,000đ",
+        "price": "25,000đ",
         "description": "Vị cà phê phin đậm đà truyền thống kết hợp hài hòa cùng lớp kem sữa mặn béo ngậy mịn màng.",
         "imageUrl": "/images/item/ca_phe_muoi.png",
         "badge": "Signature"
@@ -33,7 +33,7 @@
       {
         "id": "fe2",
         "name": "Matcha Latte Espresso",
-        "price": "55,000đ",
+        "price": "35,000đ",
         "description": "Matcha Uji Nhật Bản nguyên chất quyện sữa tươi thanh trùng và một shot espresso rang mộc đậm đà.",
         "imageUrl": "/images/item/matcha_latte.png",
         "badge": "Best Seller"
@@ -41,7 +41,7 @@
       {
         "id": "fe3",
         "name": "Sữa Chua Đá Xay Cổ Điển",
-        "price": "42,000đ",
+        "price": "25,000đ",
         "description": "Sữa chua lên men tự nhiên mát lạnh, đá xay nhuyễn mịn cùng chút mứt vỏ cam cay nhẹ thơm nồng.",
         "imageUrl": "/images/item/sua_chua_da.png",
         "badge": "Yêu Thích"
@@ -49,7 +49,7 @@
       {
         "id": "fe4",
         "name": "Trà Gạo Rang Trân Châu Đen",
-        "price": "48,000đ",
+        "price": "25,000đ",
         "description": "Trà gạo rang Genmaicha thơm lừng hương gạo nếp nướng quyện sữa béo nhẹ và trân châu đen dai giòn.",
         "imageUrl": "/images/item/tra_gao_rang_tran_chau_den.png",
         "badge": "Mới Lạ"
@@ -57,7 +57,7 @@
       {
         "id": "fe5",
         "name": "Trà Sen Vàng Kem Sữa",
-        "price": "50,000đ",
+        "price": "35,000đ",
         "description": "Trà ô long thượng hạng ủ lạnh, hạt sen ninh đường phèn bùi ngọt, củ năng giòn sần sật và kem sữa muối.",
         "imageUrl": "/images/item/tra_sen_vang.png",
         "badge": "Bán Chạy"
