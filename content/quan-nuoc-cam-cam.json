@@ -1,0 +1,183 @@
+{
+  "seoTitle": "CAM CAM - Cà Phê & Trà Thủ Công Cao Cấp",
+  "seoDescription": "Thương hiệu cà phê & trà boutique ấm áp, mộc mạc, thủ công và kết nối mọi giác quan. Hương vị tinh tế được pha chế từ nguyên liệu organic sạch tự nhiên.",
+  "campaignName": "CAM_CAM_VINTAGE_RELAUNCH_2026",
+  "hero": {
+    "headline": "Mộc Mạc Hương Vị, Ấm Áp Không Gian",
+    "subheadline": "Từng tách cà phê và ly trà tại CAM CAM đều được chắt lọc thủ công tỉ mỉ từ những hạt cà phê rang mộc và lá trà organic thượng hạng. Nơi lưu giữ những bình yên giữa lòng thành phố.",
+    "ctaText": "Đặt Bàn Trải Nghiệm Ngay",
+    "ctaHref": "#lien-he"
+  },
+  "about": {
+    "title": "Hành Trình Gieo Mầm Cảm Xúc",
+    "subtitle": "Kể về một góc nhỏ ấm áp và mộc mạc tại CAM CAM",
+    "description": "Tại CAM CAM, chúng tôi không chỉ bán cà phê và trà. Chúng tôi kể câu chuyện về sự kết nối giữa con người với thiên nhiên, về niềm đam mê với những sản phẩm được làm thủ công bằng cả trái tim. Từ khâu tuyển chọn hạt mộc sơ chế mật ong, cho tới kỹ thuật ủ trà lạnh giữ trọn hương hoa nhài thanh tao, mỗi chi tiết nhỏ đều hướng tới việc đánh thức trọn vẹn giác quan của bạn.",
+    "highlights": [
+      { "title": "Rang Mộc Thủ Công", "text": "Hạt cà phê chín đỏ được rang tay từng mẻ nhỏ, giữ trọn vị béo ngậy và hương thơm nguyên bản." },
+      { "title": "Trà Hoa Hữu Cơ", "text": "Lá trà được thu hái thủ công từ các đồi chè hữu cơ cao nguyên Thái Nguyên và Lâm Đồng." },
+      { "title": "Không Gian Sensory", "text": "Một không gian ấm cúng với nền nhạc acoustic dịu nhẹ, mùi hương gỗ mộc quyện hương tinh dầu cam." }
+    ]
+  },
+  "featured": {
+    "title": "Bộ Sưu Tập Món Ngon Tiêu Biểu",
+    "subtitle": "Những hương vị Signature làm nên tên tuổi của CAM CAM",
+    "items": [
+      {
+        "id": "fe1",
+        "name": "Cà Phê Muối",
+        "price": "45,000đ",
+        "description": "Vị cà phê phin đậm đà truyền thống kết hợp hài hòa cùng lớp kem sữa mặn béo ngậy mịn màng.",
+        "imageUrl": "/images/item/ca_phe_muoi.png",
+        "badge": "Signature"
+      },
+      {
+        "id": "fe2",
+        "name": "Matcha Latte Espresso",
+        "price": "55,000đ",
+        "description": "Matcha Uji Nhật Bản nguyên chất quyện sữa tươi thanh trùng và một shot espresso rang mộc đậm đà.",
+        "imageUrl": "/images/item/matcha_latte.png",
+        "badge": "Best Seller"
+      },
+      {
+        "id": "fe3",
+        "name": "Sữa Chua Đá Xay Cổ Điển",
+        "price": "42,000đ",
+        "description": "Sữa chua lên men tự nhiên mát lạnh, đá xay nhuyễn mịn cùng chút mứt vỏ cam cay nhẹ thơm nồng.",
+        "imageUrl": "/images/item/sua_chua_da.png",
+        "badge": "Yêu Thích"
+      },
+      {
+        "id": "fe4",
+        "name": "Trà Gạo Rang Trân Châu Đen",
+        "price": "48,000đ",
+        "description": "Trà gạo rang Genmaicha thơm lừng hương gạo nếp nướng quyện sữa béo nhẹ và trân châu đen dai giòn.",
+        "imageUrl": "/images/item/tra_gao_rang_tran_chau_den.png",
+        "badge": "Mới Lạ"
+      },
+      {
+        "id": "fe5",
+        "name": "Trà Sen Vàng Kem Sữa",
+        "price": "50,000đ",
+        "description": "Trà ô long thượng hạng ủ lạnh, hạt sen ninh đường phèn bùi ngọt, củ năng giòn sần sật và kem sữa muối.",
+        "imageUrl": "/images/item/tra_sen_vang.png",
+        "badge": "Bán Chạy"
+      }
+    ]
+  },
+  "menu": {
+    "title": "Thực Đơn Của Quán",
+    "subtitle": "Thức uống mộc mạc làm từ tình yêu hạt cà phê và lá trà xanh tự nhiên",
+    "categories": [
+      {
+        "id": "cat1",
+        "name": "Cà Phê Thủ Công",
+        "items": [
+          { "name": "Cà Phê Muối CAM CAM", "price": "45,000đ", "desc": "Cà phê Robusta đậm đặc kết hợp kem muối béo ngậy" },
+          { "name": "Bạc Xỉu Sữa Dừa", "price": "40,000đ", "desc": "Cà phê sữa truyền thống kết hợp nước cốt dừa tươi thơm béo" },
+          { "name": "Espresso Romano", "price": "38,000đ", "desc": "Một shot espresso đậm đặc phục vụ cùng lát chanh vàng thanh mát" },
+          { "name": "Cold Brew Cam Vàng", "price": "45,000đ", "desc": "Cà phê ủ lạnh 16 tiếng quyện nước cam tươi nguyên chất ngọt lành" }
+        ]
+      },
+      {
+        "id": "cat2",
+        "name": "Trà Mộc & Trà Trái Cây",
+        "items": [
+          { "name": "Trà Sen Vàng Kem Sữa", "price": "50,000đ", "desc": "Hương sen thanh mát kết hợp củ năng giòn ngọt và kem sữa mặn" },
+          { "name": "Trà Gạo Rang Genmaicha", "price": "48,000đ", "desc": "Trà xanh gạo lứt Nhật Bản nướng thơm lừng, trân châu đen thủ công" },
+          { "name": "Trà Dâu Tây Cam Cam", "price": "45,000đ", "desc": "Cốt hồng trà ủ lạnh, dâu tươi Đà Lạt ngâm đường phèn ngọt nhẹ" },
+          { "name": "Trà Ô Long Mật Ong", "price": "42,000đ", "desc": "Trà ô long rừng Lâm Đồng kết hợp mật ong hoa nhãn nguyên chất" }
+        ]
+      }
+    ]
+  },
+  "story": {
+    "title": "Không Gian Nhỏ, Câu Chuyện Lớn",
+    "subtitle": "Ghé CAM CAM cảm nhận sự mộc mạc bình yên",
+    "content": "Chúng tôi tin rằng, một ly cà phê ngon cần được thưởng thức trong một bầu không khí thích hợp. Tại CAM CAM, không gian gỗ thông mộc mạc nhuốm màu thời gian hòa cùng ánh sáng vàng ấm áp chiếu rọi qua khung cửa kính cũ kỹ. Mùi hương gỗ quyện hương vỏ cam ngào ngạt, tiếng nhạc đĩa than rè rè vang vọng... Tất cả tạo nên một thế giới tách biệt, nơi bạn có thể chậm rãi đọc một cuốn sách, trò chuyện cùng tri kỷ hoặc đơn giản là lắng lòng ngắm nhìn những hạt mưa rơi.",
+    "bgImage": "/images/background/3.png"
+  },
+  "benefits": {
+    "title": "Giá Trị Chúng Tôi Theo Đuổi",
+    "subtitle": "Tại sao CAM CAM lại mang đến hương vị khác biệt sâu sắc?",
+    "items": [
+      {
+        "id": "be1",
+        "title": "Canh Tác Organic 100%",
+        "description": "Chúng tôi trực tiếp thu mua nông sản tại các hợp tác xã canh tác tự nhiên không sử dụng thuốc trừ sâu hóa học.",
+        "iconName": "Leaf"
+      },
+      {
+        "id": "be2",
+        "title": "Pha Chế Thủ Công",
+        "description": "Mọi sirup trái cây, thạch củ năng, kem mặn đều do barista của quán tự làm tay (home-made) mỗi sáng sớm.",
+        "iconName": "Coffee"
+      },
+      {
+        "id": "be3",
+        "title": "Nói Không Với Nhựa",
+        "description": "Toàn bộ ly cốc phục vụ tại quán đều bằng gốm sứ mộc mạc. Đồ mang đi đựng hoàn toàn bằng chai thủy tinh tái sử dụng.",
+        "iconName": "Shield"
+      },
+      {
+        "id": "be4",
+        "title": "Kết Nối Đa Giác Quan",
+        "description": "Chúng tôi thiết kế không gian bao bọc bởi mùi gỗ, hương cam, âm thanh acoustic nhẹ, đĩa than và sách giấy cũ.",
+        "iconName": "Heart"
+      }
+    ]
+  },
+  "socialProof": {
+    "title": "Lời Nhỏ Từ Những Tri Kỷ",
+    "subtitle": "Cảm nhận từ những người bạn đã ghé quán và yêu mến CAM CAM",
+    "testimonials": [
+      {
+        "id": "t1",
+        "quote": "Một không gian cà phê có gu hiếm hoi giữa Sài Gòn. Cà phê muối ở đây thơm ngậy, kem béo vừa vặn chứ không quá ngọt. Cảm giác bước chân vào quán như trút bỏ mọi muộn phiền.",
+        "author": "Khánh Linh",
+        "role": "Nhà thiết kế đồ họa",
+        "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"
+      },
+      {
+        "id": "t2",
+        "quote": "Tôi thích cách quán phục vụ đồ uống bằng cốc gốm nung mộc mạc và trả lại chai thủy tinh. Trà sen vàng ngọt bùi hạt sen thật, củ năng giòn sần sật uống cực kỳ thanh tịnh.",
+        "author": "Thầy giáo Nam",
+        "role": "Giáo viên ngữ văn"
+      },
+      {
+        "id": "t3",
+        "quote": "Bữa đó đi chiều mưa, ngồi nghe đĩa than của Trịnh Công Sơn, nhấp ngụm trà gạo rang thơm ngát hương lúa nếp nướng thấy cuộc đời trôi chậm lại hẳn. Sẽ ghé quán thường xuyên.",
+        "author": "Hoàng Bách",
+        "role": "Nhà văn tự do",
+        "avatarUrl": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "id": "f1",
+      "question": "Hạt cà phê của CAM CAM có nguồn gốc từ đâu?",
+      "answer": "Hạt cà phê của CAM CAM được tuyển chọn từ các nông trại hữu cơ tại Cầu Đất (Lâm Đồng) canh tác tự nhiên, sau đó được rang mộc thủ công từng mẻ nhỏ tại quán để giữ trọn vị mộc mạc."
+    },
+    {
+      "id": "f2",
+      "question": "Quán có không gian yên tĩnh để làm việc không?",
+      "answer": "Có, tầng 2 của CAM CAM được thiết kế chuyên biệt cho việc học tập và làm việc với ánh sáng dịu nhẹ, nhiều ổ cắm điện, bàn ghế gỗ rộng rãi và wifi tốc độ cao."
+    },
+    {
+      "id": "f3",
+      "question": "Tôi có thể mua hạt cà phê rang mộc hoặc trà đóng chai mang về không?",
+      "answer": "Hoàn toàn được! Chúng tôi cung cấp các gói hạt cà phê rang mộc đóng túi zip giấy 250g/500g và các loại trà đóng chai thủy tinh cao cấp bảo quản lạnh mang đi."
+    },
+    {
+      "id": "f4",
+      "question": "Quán có chỗ đỗ xe không?",
+      "answer": "CAM CAM hỗ trợ chỗ đỗ xe máy miễn phí ngay trước cửa quán có bảo vệ trông coi. Với xe ô tô, bạn có thể gửi tại bãi đỗ xe công cộng cách quán chỉ 50m."
+    }
+  ],
+  "cta": {
+    "title": "Ghé CAM CAM Hôm Nay",
+    "subtitle": "Tìm về sự mộc mạc bình yên bên ly trà thơm và tách cà phê ấm nóng gieo mầm hạnh phúc.",
+    "ctaText": "Đặt Bàn Trải Nghiệm",
+    "ctaHref": "#lien-he"
+  }
+}
