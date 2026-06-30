@@ -143,8 +143,9 @@ export function HeroSection() {
       <div className="max-w-6xl mx-auto relative z-10 w-full">
         <div className="max-w-4xl space-y-8">
           
-          {/* Badge animation - slides in left (Arrow pointing right) */}
+          {/* Badge animation - slides in left, delay: 1000ms */}
           <div
+            style={{ transitionDelay: "1000ms" }}
             className={cn(
               "animate-slide-in-left duration-700",
               isInView && "in-view"
@@ -155,19 +156,21 @@ export function HeroSection() {
             </span>
           </div>
 
-          {/* Headline animations - slides in left (Arrows pointing right). Dòng trên xuất hiện xong mới tới dòng dưới */}
+          {/* Headline animations - slides in left. Dòng 1 (1200ms) ➔ Dòng 2 (1550ms) */}
           <h1 className="font-serif font-black text-espresso-dark leading-[1.25] tracking-tight pb-2">
             <span
+              style={{ transitionDelay: "1200ms" }}
               className={cn(
-                "block text-4xl sm:text-5xl md:text-6xl lg:text-7xl whitespace-nowrap animate-slide-in-left duration-700 delay-200",
+                "block text-4xl sm:text-5xl md:text-6xl lg:text-7xl whitespace-nowrap animate-slide-in-left duration-700",
                 isInView && "in-view"
               )}
             >
               {t.headlineLine1}
             </span>
             <span
+              style={{ transitionDelay: "1550ms" }}
               className={cn(
-                "block text-4xl sm:text-5xl md:text-6xl lg:text-7xl whitespace-nowrap mt-2 text-olive-primary animate-slide-in-left duration-700 delay-550",
+                "block text-4xl sm:text-5xl md:text-6xl lg:text-7xl whitespace-nowrap mt-2 text-olive-primary animate-slide-in-left duration-700",
                 isInView && "in-view"
               )}
             >
@@ -175,10 +178,11 @@ export function HeroSection() {
             </span>
           </h1>
 
-          {/* Subheadline animation - slides in left (Arrow pointing right) */}
+          {/* Subheadline animation - slides in left, delay: 1900ms */}
           <div
+            style={{ transitionDelay: "1900ms" }}
             className={cn(
-              "animate-slide-in-left duration-700 delay-850",
+              "animate-slide-in-left duration-700",
               isInView && "in-view"
             )}
           >
@@ -187,10 +191,11 @@ export function HeroSection() {
             </p>
           </div>
 
-          {/* Typing Effect - slides in left (Arrow pointing right) */}
+          {/* Typing Effect - slides in left, delay: 2100ms */}
           <div
+            style={{ transitionDelay: "2100ms" }}
             className={cn(
-              "h-10 flex items-center animate-slide-in-left duration-700 delay-[1100ms]",
+              "h-10 flex items-center animate-slide-in-left duration-700",
               isInView && "in-view"
             )}
           >
@@ -200,10 +205,11 @@ export function HeroSection() {
             </span>
           </div>
 
-          {/* Buttons animation - slides in left (Arrow pointing right) */}
+          {/* Buttons animation - slides in left, delay: 2350ms */}
           <div
+            style={{ transitionDelay: "2350ms" }}
             className={cn(
-              "pt-2 flex flex-col sm:flex-row gap-4 animate-slide-in-left duration-700 delay-[1300ms]",
+              "pt-2 flex flex-col sm:flex-row gap-4 animate-slide-in-left duration-700",
               isInView && "in-view"
             )}
           >

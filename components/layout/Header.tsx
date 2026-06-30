@@ -24,7 +24,7 @@ export function Header() {
   const navLinks = {
     vi: [
       { label: "Trang chủ", href: "#trang-chu" },
-      { label: "Về CAM CAM", href: "#ve-chung-toi" },
+      { label: "Giới thiệu", href: "#ve-chung-toi" },
       { label: "Sản phẩm", href: "#san-pham-noi-bat" },
       { label: "Thực đơn", href: "#thuc-don" },
       { label: "Liên hệ", href: "#lien-he" },
@@ -61,7 +61,7 @@ export function Header() {
     >
       <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
         
-        {/* Logo - slides in from left to right (Arrow pointing right) */}
+        {/* Logo - slides in from left to right at mount (no delay) */}
         <a
           href="#trang-chu"
           onClick={(e) => handleScrollToSection(e, "#trang-chu")}
@@ -84,32 +84,32 @@ export function Header() {
           </span>
         </a>
 
-        {/* Desktop Navigation - slides down (Arrows pointing down) */}
+        {/* Desktop Navigation - slides down sequentially AFTER logo & CTA mount */}
         <nav className="hidden md:flex items-center gap-8">
-          {currentLinks.map((link, index) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => handleScrollToSection(e, link.href)}
-              className={cn(
-                "text-sm font-bold text-espresso-dark/95 hover:text-olive-primary transition-colors duration-300 relative py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-olive-primary after:transition-all hover:after:w-full animate-slide-down duration-700",
-                index === 0 && "delay-100",
-                index === 1 && "delay-200",
-                index === 2 && "delay-300",
-                index === 3 && "delay-400",
-                index === 4 && "delay-500",
-                isMounted && "in-view"
-              )}
-            >
-              {link.label}
-            </a>
-          ))}
+          {currentLinks.map((link, index) => {
+            // Sequential delay starts at 200ms and increments by 150ms for each item
+            const delayTime = `${200 + index * 150}ms`;
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => handleScrollToSection(e, link.href)}
+                style={{ transitionDelay: delayTime }}
+                className={cn(
+                  "text-sm font-bold text-espresso-dark/95 hover:text-olive-primary transition-colors duration-300 relative py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-olive-primary after:transition-all hover:after:w-full animate-slide-down duration-700",
+                  isMounted && "in-view"
+                )}
+              >
+                {link.label}
+              </a>
+            );
+          })}
         </nav>
 
-        {/* Desktop Right Group: Lang Toggle + CTA - slides in from right to left (Arrow pointing left) */}
+        {/* Desktop Right Group: Lang Toggle + CTA - slides in-right simultaneously with logo (no delay) */}
         <div
           className={cn(
-            "hidden md:flex items-center gap-4 animate-slide-in-right duration-700 delay-300",
+            "hidden md:flex items-center gap-4 animate-slide-in-right duration-700",
             isMounted && "in-view"
           )}
         >
