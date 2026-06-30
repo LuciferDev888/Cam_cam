@@ -17,7 +17,7 @@ interface MenuItem {
 
 interface MenuCategory {
   category: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<{ className?: string }>;
   items: MenuItem[];
 }
 

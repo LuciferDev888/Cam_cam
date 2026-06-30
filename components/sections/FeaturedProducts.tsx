@@ -22,7 +22,6 @@ interface FeaturedProductsProps {
 }
 
 export function FeaturedProducts({
-  title,
   subtitle,
   items,
   className,
