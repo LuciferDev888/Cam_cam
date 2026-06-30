@@ -44,6 +44,7 @@ export function StorySection({
           
           {/* Large Space Photo (Columns 1-6 - Slide in Left) */}
           <div
+            style={{ transitionDelay: "0ms" }}
             className={cn(
               "lg:col-span-6 relative flex justify-center animate-slide-in-left duration-700",
               isInView && "in-view"
@@ -60,21 +61,40 @@ export function StorySection({
             </div>
           </div>
 
-          {/* Story Card (Columns 7-12 - Slide in Right) */}
-          <div
-            className={cn(
-              "lg:col-span-6 p-8 md:p-10 bg-paper-warm rounded-3xl border border-border-taupe/40 shadow-vintage-md space-y-6 animate-slide-in-right duration-700",
-              isInView && "in-view"
-            )}
-          >
-            <span className="text-xs font-bold tracking-widest uppercase text-olive-primary">
+          {/* Story Card (Columns 7-12 - Slide in Right with sequential text delays) */}
+          <div className="lg:col-span-6 p-8 md:p-10 bg-paper-warm rounded-3xl border border-border-taupe/40 shadow-vintage-md space-y-6">
+            <span
+              style={{ transitionDelay: "200ms" }}
+              className={cn(
+                "text-xs font-bold tracking-widest uppercase text-olive-primary block animate-slide-in-right duration-700",
+                isInView && "in-view"
+              )}
+            >
               {t.subtitle}
             </span>
-            <h2 className="text-2xl md:text-4xl font-serif font-bold text-espresso-dark leading-tight">
+            <h2
+              style={{ transitionDelay: "400ms" }}
+              className={cn(
+                "text-2xl md:text-4xl font-serif font-bold text-espresso-dark leading-tight animate-slide-in-right duration-700",
+                isInView && "in-view"
+              )}
+            >
               {t.title}
             </h2>
-            <div className="w-16 h-[2px] bg-olive-primary"></div>
-            <p className="text-taupe-gray leading-relaxed text-sm md:text-base font-medium font-sans">
+            <div
+              style={{ transitionDelay: "550ms" }}
+              className={cn(
+                "w-16 h-[2px] bg-olive-primary animate-slide-in-right duration-700",
+                isInView && "in-view"
+              )}
+            ></div>
+            <p
+              style={{ transitionDelay: "700ms" }}
+              className={cn(
+                "text-taupe-gray leading-relaxed text-sm md:text-base font-medium font-sans animate-slide-in-right duration-700",
+                isInView && "in-view"
+              )}
+            >
               {t.content}
             </p>
           </div>

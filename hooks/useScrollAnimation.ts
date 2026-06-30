@@ -7,9 +7,20 @@ export function useScrollAnimation() {
   const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsInView(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          // Delay entry by 2 seconds (2000ms) after entering the viewport
+          timeoutId = setTimeout(() => {
+            setIsInView(true);
+          }, 2000);
+        } else {
+          // Reset immediately when leaving viewport
+          clearTimeout(timeoutId);
+          setIsInView(false);
+        }
       },
       {
         threshold: 0.05,
@@ -23,6 +34,7 @@ export function useScrollAnimation() {
     }
 
     return () => {
+      clearTimeout(timeoutId);
       if (currentRef) {
         observer.unobserve(currentRef);
       }

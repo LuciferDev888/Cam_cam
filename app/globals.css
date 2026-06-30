@@ -121,3 +121,27 @@ body {
   scrollbar-width: none;
 }
 
+/* ===== Glowing Aura Sparkle Animation ===== */
+@keyframes auraGlow {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.55;
+    filter: blur(20px);
+  }
+  50% {
+    transform: scale(1.18) rotate(180deg);
+    opacity: 0.85;
+    filter: blur(28px);
+  }
+}
+.aura-sparkle {
+  position: absolute;
+  inset: 15%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217,119,6,0.3) 0%, rgba(234,179,8,0.15) 50%, transparent 70%);
+  animation: auraGlow 5s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+

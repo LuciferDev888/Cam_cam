@@ -41,6 +41,7 @@ export function CTAFooterSection({
       {/* CTA Banner */}
       <div className="py-24 px-4 relative z-10 border-b border-border-taupe/20 max-w-6xl mx-auto">
         <div
+          style={{ transitionDelay: "0ms" }}
           className={cn(
             "max-w-4xl mx-auto text-center space-y-8 animate-slide-up duration-700",
             isInView && "in-view"

@@ -98,14 +98,15 @@ export function FeaturedProducts({
         {/* Main Grid Layout containing Left Column, Middle Carousel, and Right Features */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          {/* Column 1: Info and Story (Columns 1-4) */}
-          <div
-            className={cn(
-              "lg:col-span-4 space-y-6 animate-slide-in-left duration-700",
-              isInView && "in-view"
-            )}
-          >
-            <div className="flex items-center gap-3">
+          {/* Column 1: Info and Story (Columns 1-4) - Sequential left-to-right delays */}
+          <div className="lg:col-span-4 space-y-6">
+            <div
+              style={{ transitionDelay: "0ms" }}
+              className={cn(
+                "flex items-center gap-3 animate-slide-in-left duration-700",
+                isInView && "in-view"
+              )}
+            >
               <span className="w-10 h-10 rounded-full border border-border-taupe/40 flex items-center justify-center font-serif font-black text-sm text-olive-primary bg-paper-warm/50 shadow-vintage-sm">
                 02
               </span>
@@ -115,7 +116,13 @@ export function FeaturedProducts({
             </div>
             
             {/* Display active item's name as headline */}
-            <div className="space-y-2">
+            <div
+              style={{ transitionDelay: "200ms" }}
+              className={cn(
+                "space-y-2 animate-slide-in-left duration-700",
+                isInView && "in-view"
+              )}
+            >
               <span className="text-xs font-bold uppercase tracking-wider text-olive-primary">
                 {activeItem.badge || "SIGNATURE"}
               </span>
@@ -124,11 +131,23 @@ export function FeaturedProducts({
               </h2>
             </div>
 
-            <p className="text-taupe-gray text-sm leading-relaxed font-medium font-sans">
+            <p
+              style={{ transitionDelay: "400ms" }}
+              className={cn(
+                "text-taupe-gray text-sm leading-relaxed font-medium font-sans animate-slide-in-left duration-700",
+                isInView && "in-view"
+              )}
+            >
               {activeItem.description}
             </p>
 
-            <div className="pt-2">
+            <div
+              style={{ transitionDelay: "600ms" }}
+              className={cn(
+                "pt-2 animate-slide-in-left duration-700",
+                isInView && "in-view"
+              )}
+            >
               <a
                 href="#thuc-don"
                 onClick={handleScrollToMenu}
@@ -140,17 +159,21 @@ export function FeaturedProducts({
             </div>
           </div>
 
-          {/* Column 2: Center Circular Carousel (Columns 5-8) */}
+          {/* Column 2: Center Circular Carousel (Columns 5-8) - Fade/scale in */}
           <div className="lg:col-span-4 flex justify-center py-6">
             <div
+              style={{ transitionDelay: "300ms" }}
               className={cn(
                 "relative w-[290px] h-[290px] md:w-[340px] md:h-[340px] rounded-full border border-border-taupe/50 flex items-center justify-center bg-paper-warm/30 shadow-vintage-lg backdrop-blur-sm p-4 animate-fade-in duration-1000",
                 isInView && "in-view"
               )}
             >
               
+              {/* Glowing Aura Sparkle behind image */}
+              <div className="aura-sparkle opacity-100" />
+              
               {/* Outer decorative ring */}
-              <div className="absolute inset-2 rounded-full border border-dashed border-border-taupe/30 pointer-events-none" />
+              <div className="absolute inset-2 rounded-full border border-dashed border-border-taupe/30 pointer-events-none z-[1]" />
               
               {/* Arrow: Prev */}
               <button
@@ -162,7 +185,7 @@ export function FeaturedProducts({
               </button>
 
               {/* Central active product image wrapper */}
-              <div className="relative w-4/5 h-4/5 flex items-center justify-center transition-all duration-500 transform hover:scale-105">
+              <div className="relative w-4/5 h-4/5 flex items-center justify-center transition-all duration-500 transform hover:scale-105 z-10">
                 <Image
                   src={activeItem.imageUrl}
                   alt={activeItem.name}
@@ -182,7 +205,7 @@ export function FeaturedProducts({
               </button>
 
               {/* Tiny Price Tag Badge */}
-              <span className="absolute bottom-4 px-4 py-1.5 rounded-full text-xs font-bold bg-olive-primary text-paper-warm shadow-vintage-sm font-sans">
+              <span className="absolute bottom-4 px-4 py-1.5 rounded-full text-xs font-bold bg-olive-primary text-paper-warm shadow-vintage-sm font-sans z-20">
                 {activeItem.price}
               </span>
 
@@ -200,19 +223,18 @@ export function FeaturedProducts({
               <div className="w-[1px] flex-grow bg-border-taupe/40" />
             </div>
 
-            {/* Values content list */}
+            {/* Values content list - Animates sequentially */}
             <div className="col-span-12 lg:col-span-10 space-y-6 flex flex-col justify-center">
               {signatureValues.map((val, idx) => {
                 const IconComponent = val.icon;
+                const delayTime = `${500 + idx * 200}ms`;
+
                 return (
                   <div
                     key={idx}
+                    style={{ transitionDelay: delayTime }}
                     className={cn(
                       "flex gap-4 items-start group animate-slide-in-right duration-700",
-                      idx === 0 && "delay-100",
-                      idx === 1 && "delay-300",
-                      idx === 2 && "delay-500",
-                      idx === 3 && "delay-700",
                       isInView && "in-view"
                     )}
                   >

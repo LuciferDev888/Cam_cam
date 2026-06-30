@@ -1642,7 +1642,7 @@ const MENU_DATA_EN: MenuCategory[] = [
         image: "/images/item/tra_sen_vang.png",
         ratings: [
           { label: "CREAMINESS", value: 1 },
-          { label: "STRENGTH", value: 3 },
+          { label: "STRENGTH", value: 3.8 },
           { label: "SWEETNESS", value: 3.8 }
         ],
         pairing: "RECOMMENDED WITH: Coconut jelly."
@@ -2060,14 +2060,15 @@ export function MenuSection({ className }: MenuSectionProps) {
         {/* Main Grid Layout containing Sidebar (Left), Content List (Middle) and Spotlight Card (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
-          {/* Column 1: Sidebar Title (Columns 1-3) */}
-          <div
-            className={cn(
-              "lg:col-span-3 space-y-6 flex flex-col justify-center lg:pr-4 animate-slide-in-left duration-700",
-              isInView && "in-view"
-            )}
-          >
-            <div className="flex items-center gap-3">
+          {/* Column 1: Sidebar Title (Columns 1-3) - Animates sequentially */}
+          <div className="lg:col-span-3 space-y-6 flex flex-col justify-center lg:pr-4">
+            <div
+              style={{ transitionDelay: "0ms" }}
+              className={cn(
+                "flex items-center gap-3 animate-slide-in-left duration-700",
+                isInView && "in-view"
+              )}
+            >
               <span className="w-10 h-10 rounded-full border border-border-taupe/40 flex items-center justify-center font-serif font-black text-sm text-olive-primary bg-beige-vintage/35">
                 04
               </span>
@@ -2075,18 +2076,31 @@ export function MenuSection({ className }: MenuSectionProps) {
                 {t.subtitle}
               </span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-serif font-black text-espresso-dark leading-[1.15] tracking-tight uppercase">
+            <h2
+              style={{ transitionDelay: "200ms" }}
+              className={cn(
+                "text-3xl md:text-5xl font-serif font-black text-espresso-dark leading-[1.15] tracking-tight uppercase animate-slide-in-left duration-700",
+                isInView && "in-view"
+              )}
+            >
               {t.title}
             </h2>
-            <p className="text-taupe-gray text-sm leading-relaxed font-medium font-sans">
+            <p
+              style={{ transitionDelay: "400ms" }}
+              className={cn(
+                "text-taupe-gray text-sm leading-relaxed font-medium font-sans animate-slide-in-left duration-700",
+                isInView && "in-view"
+              )}
+            >
               {t.description}
             </p>
           </div>
 
           {/* Columns 4-12: The Interactive Menu Board (Wider Menu Box) */}
           <div
+            style={{ transitionDelay: "300ms" }}
             className={cn(
-              "lg:col-span-9 grid grid-cols-1 md:grid-cols-12 gap-6 p-6 md:p-8 bg-latte-light/15 rounded-3xl border-2 border-border-taupe/40 shadow-vintage-lg bg-paper-warm/40 backdrop-blur-sm relative animate-slide-up duration-700 delay-200",
+              "lg:col-span-9 grid grid-cols-1 md:grid-cols-12 gap-6 p-6 md:p-8 bg-latte-light/15 rounded-3xl border-2 border-border-taupe/40 shadow-vintage-lg bg-paper-warm/40 backdrop-blur-sm relative animate-slide-up duration-700",
               isInView && "in-view"
             )}
           >
@@ -2192,14 +2206,16 @@ export function MenuSection({ className }: MenuSectionProps) {
                     <Bookmark className="w-4 h-4 text-olive-primary fill-olive-primary/10" />
                   </div>
 
-                  {/* Big Drink Image */}
+                  {/* Big Drink Image - with Glow Sparkle */}
                   <div className="relative w-full aspect-square max-h-[180px] flex items-center justify-center mx-auto z-10 p-2">
+                    {/* Glowing Aura Sparkle behind image */}
+                    <div className="aura-sparkle opacity-100 scale-90" />
                     <Image
                       src={activeItem.image}
                       alt={activeItem.name}
                       fill
                       sizes="180px"
-                      className="object-contain p-1 transform hover:scale-105 transition-transform duration-500"
+                      className="object-contain p-1 transform hover:scale-105 transition-transform duration-500 z-10"
                     />
                   </div>
 

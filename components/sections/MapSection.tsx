@@ -47,23 +47,42 @@ export function MapSection({ className }: MapSectionProps) {
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Column 1: Info and CTA (Columns 1-4 - Slide in Left) */}
-          <div
-            className={cn(
-              "lg:col-span-4 space-y-6 animate-slide-in-left duration-700",
-              isInView && "in-view"
-            )}
-          >
-            <span className="text-xs font-bold tracking-widest uppercase text-olive-primary block">
+          {/* Column 1: Info and CTA (Columns 1-4 - Slide in Left with sequential delays) */}
+          <div className="lg:col-span-4 space-y-6">
+            <span
+              style={{ transitionDelay: "0ms" }}
+              className={cn(
+                "text-xs font-bold tracking-widest uppercase text-olive-primary block animate-slide-in-left duration-700",
+                isInView && "in-view"
+              )}
+            >
               {t.subtitle}
             </span>
-            <h2 className="text-4xl md:text-5xl font-serif font-black text-espresso-dark leading-[1.15] tracking-tight uppercase">
+            <h2
+              style={{ transitionDelay: "200ms" }}
+              className={cn(
+                "text-4xl md:text-5xl font-serif font-black text-espresso-dark leading-[1.15] tracking-tight uppercase animate-slide-in-left duration-700",
+                isInView && "in-view"
+              )}
+            >
               {t.titleLine1} <span className="text-olive-primary block">{t.titleLine2}</span>
             </h2>
-            <p className="text-taupe-gray text-sm leading-relaxed font-medium font-sans">
+            <p
+              style={{ transitionDelay: "400ms" }}
+              className={cn(
+                "text-taupe-gray text-sm leading-relaxed font-medium font-sans animate-slide-in-left duration-700",
+                isInView && "in-view"
+              )}
+            >
               {t.description}
             </p>
-            <div className="pt-2">
+            <div
+              style={{ transitionDelay: "600ms" }}
+              className={cn(
+                "pt-2 animate-slide-in-left duration-700",
+                isInView && "in-view"
+              )}
+            >
               <a
                 href="#lien-he"
                 onClick={handleScrollToContact}
@@ -78,8 +97,9 @@ export function MapSection({ className }: MapSectionProps) {
           {/* Column 2: Map Iframe wrapper (Columns 5-8 - Fade in) */}
           <div className="lg:col-span-5 flex justify-center">
             <div
+              style={{ transitionDelay: "300ms" }}
               className={cn(
-                "w-full rounded-3xl overflow-hidden border border-border-taupe/40 shadow-vintage-lg bg-paper-warm p-2 animate-fade-in duration-1000 delay-200",
+                "w-full rounded-3xl overflow-hidden border border-border-taupe/40 shadow-vintage-lg bg-paper-warm p-2 animate-fade-in duration-1000",
                 isInView && "in-view"
               )}
             >
@@ -98,12 +118,13 @@ export function MapSection({ className }: MapSectionProps) {
             </div>
           </div>
 
-          {/* Column 3: Contact Details List (Columns 9-12 - Slide in Right) */}
+          {/* Column 3: Contact Details List (Columns 9-12 - Slide in Right with sequential delays) */}
           <div className="lg:col-span-3 space-y-8">
             {/* Row 1: Address */}
             <div
+              style={{ transitionDelay: "500ms" }}
               className={cn(
-                "flex gap-4 items-start group animate-slide-in-right duration-700 delay-100",
+                "flex gap-4 items-start group animate-slide-in-right duration-700",
                 isInView && "in-view"
               )}
             >
@@ -122,8 +143,9 @@ export function MapSection({ className }: MapSectionProps) {
 
             {/* Row 2: Phone */}
             <div
+              style={{ transitionDelay: "700ms" }}
               className={cn(
-                "flex gap-4 items-start group animate-slide-in-right duration-700 delay-300",
+                "flex gap-4 items-start group animate-slide-in-right duration-700",
                 isInView && "in-view"
               )}
             >
@@ -142,8 +164,9 @@ export function MapSection({ className }: MapSectionProps) {
 
             {/* Row 3: Email */}
             <div
+              style={{ transitionDelay: "900ms" }}
               className={cn(
-                "flex gap-4 items-start group animate-slide-in-right duration-700 delay-500",
+                "flex gap-4 items-start group animate-slide-in-right duration-700",
                 isInView && "in-view"
               )}
             >
@@ -162,8 +185,9 @@ export function MapSection({ className }: MapSectionProps) {
 
             {/* Row 4: Open Hours */}
             <div
+              style={{ transitionDelay: "1100ms" }}
               className={cn(
-                "flex gap-4 items-start group animate-slide-in-right duration-700 delay-700",
+                "flex gap-4 items-start group animate-slide-in-right duration-700",
                 isInView && "in-view"
               )}
             >

@@ -42,8 +42,9 @@ export function LeadForm({ campaignName, className }: LeadFormProps) {
 
   return (
     <div ref={ref} className="max-w-xl mx-auto w-full">
-      {/* Title Block - Animates slide up */}
+      {/* Title Block - Animates slide up, delay: 0ms */}
       <div
+        style={{ transitionDelay: "0ms" }}
         className={cn(
           "text-center mb-10 space-y-3 animate-slide-up duration-700",
           isInView && "in-view"
@@ -61,10 +62,11 @@ export function LeadForm({ campaignName, className }: LeadFormProps) {
         <div className="w-12 h-[2px] bg-olive-primary mx-auto"></div>
       </div>
 
-      {/* Form Card - Animates fade in with slight delay */}
+      {/* Form Card - Animates slide up, delay: 300ms */}
       <div
+        style={{ transitionDelay: "300ms" }}
         className={cn(
-          "p-8 bg-paper-warm rounded-3xl shadow-vintage-lg text-espresso-dark border border-border-taupe/40 animate-slide-up duration-750 delay-150",
+          "p-8 bg-paper-warm rounded-3xl shadow-vintage-lg text-espresso-dark border border-border-taupe/40 animate-slide-up duration-700",
           isInView && "in-view",
           className
         )}

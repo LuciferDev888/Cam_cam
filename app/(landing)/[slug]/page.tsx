@@ -5,6 +5,7 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { FeaturedProducts } from "@/components/sections/FeaturedProducts";
 import { MenuSection } from "@/components/sections/MenuSection";
+import { GalleryParallax } from "@/components/sections/GalleryParallax";
 import { StorySection } from "@/components/sections/StorySection";
 import { BenefitsSection } from "@/components/sections/BenefitsSection";
 import { CTAFooterSection } from "@/components/sections/CTAFooterSection";
@@ -56,6 +57,9 @@ export default async function LandingPage({ params }: PageProps) {
 
       {/* 4. Menu / nhóm đồ uống tiêu biểu */}
       <MenuSection />
+
+      {/* Gallery Parallax Rows */}
+      <GalleryParallax />
 
       {/* 5. Không gian và câu chuyện thương hiệu */}
       <StorySection bgImage={content.story.bgImage} />
