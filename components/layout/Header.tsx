@@ -10,8 +10,10 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { lang, setLang } = useLanguage();
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
@@ -58,11 +60,15 @@ export function Header() {
       )}
     >
       <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
-        {/* Logo */}
+        
+        {/* Logo - slides in from left to right (Arrow pointing right) */}
         <a
           href="#trang-chu"
           onClick={(e) => handleScrollToSection(e, "#trang-chu")}
-          className="flex items-center gap-2 group cursor-pointer"
+          className={cn(
+            "flex items-center gap-2 group cursor-pointer animate-slide-in-left duration-700",
+            isMounted && "in-view"
+          )}
         >
           <div className="relative w-14 h-14 rounded-full overflow-hidden group-hover:scale-110 transition-transform duration-300">
             <Image
@@ -78,22 +84,35 @@ export function Header() {
           </span>
         </a>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation - slides down (Arrows pointing down) */}
         <nav className="hidden md:flex items-center gap-8">
-          {currentLinks.map((link) => (
+          {currentLinks.map((link, index) => (
             <a
               key={link.href}
               href={link.href}
               onClick={(e) => handleScrollToSection(e, link.href)}
-              className="text-sm font-bold text-espresso-dark/95 hover:text-olive-primary transition-colors duration-300 relative py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-olive-primary after:transition-all hover:after:w-full"
+              className={cn(
+                "text-sm font-bold text-espresso-dark/95 hover:text-olive-primary transition-colors duration-300 relative py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-olive-primary after:transition-all hover:after:w-full animate-slide-down duration-700",
+                index === 0 && "delay-100",
+                index === 1 && "delay-200",
+                index === 2 && "delay-300",
+                index === 3 && "delay-400",
+                index === 4 && "delay-500",
+                isMounted && "in-view"
+              )}
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        {/* Desktop Right Group: Lang Toggle + CTA */}
-        <div className="hidden md:flex items-center gap-4">
+        {/* Desktop Right Group: Lang Toggle + CTA - slides in from right to left (Arrow pointing left) */}
+        <div
+          className={cn(
+            "hidden md:flex items-center gap-4 animate-slide-in-right duration-700 delay-300",
+            isMounted && "in-view"
+          )}
+        >
           {/* Language Toggle */}
           <button
             onClick={() => setLang(lang === "vi" ? "en" : "vi")}
