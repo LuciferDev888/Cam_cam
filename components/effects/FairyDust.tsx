@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 interface Particle {
   id: number;
@@ -8,7 +8,7 @@ interface Particle {
   y: number;
   size: number;
   color: string;
-  isCircle: boolean;
+  isStar: boolean;
   delay: number;
   duration: number;
 }
@@ -19,38 +19,55 @@ interface CursorSparkle {
   y: number;
   size: number;
   color: string;
-  type: string;
+  isStar: boolean;
 }
 
-// Curated selection of premium sparkling pastel/gold tones
-const PARTICLE_COLORS = [
-  "#fbbf24", // Premium Gold
-  "#f472b6", // Rose Pink
-  "#34d399", // Mint Green / Teal
-  "#fb923c", // Vibrant Amber
-  "#c084fc", // Lavender Purple
+// Exactly the colors from the user's reference image
+const SPARKLE_COLORS = [
+  "#ffffff", // Clean White
+  "#f3cb52", // Warm Gold / Yellow
+  "#73a596", // Dusty Jade / Muted Sage Green
 ];
 
-const CURSOR_SPARKLE_TYPES = ["✦", "★", "✧", "✶"];
+// Custom 4-Pointed Pinched Star SVG Component
+function Star4Point({ color, size, className }: { color: string; size: number; className?: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      style={{ filter: `drop-shadow(0 0 3px ${color}80)` }}
+    >
+      <path
+        d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 12 12 6.627 12 0Z"
+        fill={color}
+      />
+    </svg>
+  );
+}
 
 export function FairyDust() {
   const [particles, setParticles] = useState<Particle[]>([]);
   const [cursorSparkles, setCursorSparkles] = useState<CursorSparkle[]>([]);
+  const idCounter = useRef(0);
 
   useEffect(() => {
-    // Generate 110 randomized floating orbs and stars distributed across the page
-    const newParticles = Array.from({ length: 110 }).map((_, i) => {
-      const color = PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)];
-      const isCircle = Math.random() > 0.45; // 45% stars, 55% glowing circles
+    // Generate 120 randomized background floating orbs and stars matching the style guide
+    const newParticles = Array.from({ length: 120 }).map((_, i) => {
+      const color = SPARKLE_COLORS[Math.floor(Math.random() * SPARKLE_COLORS.length)];
+      const isStar = Math.random() > 0.55; // 45% stars, 55% circles
       return {
         id: i,
         x: Math.random() * 100,
         y: Math.random() * 98 + 1,
-        size: Math.random() * 11 + 6, // 6px to 17px
+        size: isStar ? Math.random() * 10 + 10 : Math.random() * 8 + 4, // stars: 10px-20px, circles: 4px-12px
         color,
-        isCircle,
+        isStar,
         delay: Math.random() * 10,
-        duration: Math.random() * 12 + 8, // Very smooth floating speed (8s to 20s)
+        duration: Math.random() * 12 + 8, // gentle float
       };
     });
     setParticles(newParticles);
@@ -59,30 +76,29 @@ export function FairyDust() {
   useEffect(() => {
     let lastX = 0;
     let lastY = 0;
-    let idCounter = 0;
 
     const handleMouseMove = (e: MouseEvent) => {
       const dist = Math.sqrt(Math.pow(e.clientX - lastX, 2) + Math.pow(e.clientY - lastY, 2));
-      // Trigger a sparkle whenever cursor travels at least 15px
-      if (dist < 15) return;
+      // Spawn a trail particle whenever the mouse travels 12px for high-density feel
+      if (dist < 12) return;
 
       lastX = e.clientX;
       lastY = e.clientY;
 
-      const randomColor = PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)];
-      const randomType = CURSOR_SPARKLE_TYPES[Math.floor(Math.random() * CURSOR_SPARKLE_TYPES.length)];
+      const color = SPARKLE_COLORS[Math.floor(Math.random() * SPARKLE_COLORS.length)];
+      const isStar = Math.random() > 0.45; // 55% stars, 45% circles
 
       const newSparkle = {
-        id: idCounter++,
+        id: idCounter.current++,
         x: e.pageX,
         y: e.pageY,
-        size: Math.random() * 12 + 10, // size between 10px and 22px
-        color: randomColor,
-        type: randomType,
+        size: isStar ? Math.random() * 12 + 12 : Math.random() * 8 + 5, // size range
+        color,
+        isStar,
       };
 
-      // Restrict buffer size to max 45 trailing sparkles for perfect framerates
-      setCursorSparkles((prev) => [...prev.slice(-45), newSparkle]);
+      // Restrict buffer size to max 50 trailing sparkles for perfect performance
+      setCursorSparkles((prev) => [...prev.slice(-50), newSparkle]);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
@@ -94,62 +110,74 @@ export function FairyDust() {
       
       {/* Background Floating Sparkles */}
       {particles.map((p) => {
-        if (p.isCircle) {
-          // Glow circle orb
+        if (p.isStar) {
           return (
             <div
               key={p.id}
-              className="absolute rounded-full animate-[fairyFloat_15s_infinite] select-none pointer-events-none"
+              className="absolute animate-[fairyFloat_15s_infinite] select-none pointer-events-none"
               style={{
                 left: `${p.x}%`,
                 top: `${p.y}%`,
-                width: `${p.size / 2.2}px`,
-                height: `${p.size / 2.2}px`,
+                animationDelay: `${p.delay}s`,
+                animationDuration: `${p.duration}s`,
+              }}
+            >
+              <Star4Point color={p.color} size={p.size} />
+            </div>
+          );
+        } else {
+          return (
+            <div
+              key={p.id}
+              className="absolute rounded-full animate-[fairyFloat_15s_infinite] select-none pointer-events-none opacity-60"
+              style={{
+                left: `${p.x}%`,
+                top: `${p.y}%`,
+                width: `${p.size}px`,
+                height: `${p.size}px`,
                 backgroundColor: p.color,
-                boxShadow: `0 0 ${p.size}px ${p.color}, 0 0 ${p.size / 2}px ${p.color}`,
+                boxShadow: `0 0 ${p.size * 1.5}px ${p.color}80`,
                 animationDelay: `${p.delay}s`,
                 animationDuration: `${p.duration}s`,
               }}
             />
           );
-        } else {
-          // Star symbol (✦)
-          return (
-            <div
-              key={p.id}
-              className="absolute animate-[fairyFloat_15s_infinite] select-none pointer-events-none font-serif font-black"
-              style={{
-                left: `${p.x}%`,
-                top: `${p.y}%`,
-                fontSize: `${p.size}px`,
-                color: p.color,
-                textShadow: `0 0 ${p.size / 2}px ${p.color}`,
-                animationDelay: `${p.delay}s`,
-                animationDuration: `${p.duration}s`,
-              }}
-            >
-              ✦
-            </div>
-          );
         }
       })}
 
       {/* Interactive Mouse Move Sparkles Trail */}
-      {cursorSparkles.map((s) => (
-        <div
-          key={s.id}
-          className="absolute pointer-events-none select-none animate-cursor-sparkle font-serif font-black"
-          style={{
-            left: s.x,
-            top: s.y,
-            fontSize: `${s.size}px`,
-            color: s.color,
-            textShadow: `0 0 10px ${s.color}, 0 0 4px ${s.color}`,
-          }}
-        >
-          {s.type}
-        </div>
-      ))}
+      {cursorSparkles.map((s) => {
+        if (s.isStar) {
+          return (
+            <div
+              key={s.id}
+              className="absolute pointer-events-none select-none animate-cursor-sparkle"
+              style={{
+                left: s.x,
+                top: s.y,
+              }}
+            >
+              <Star4Point color={s.color} size={s.size} className="-translate-x-1/2 -translate-y-1/2" />
+            </div>
+          );
+        } else {
+          return (
+            <div
+              key={s.id}
+              className="absolute rounded-full pointer-events-none select-none animate-cursor-sparkle opacity-85"
+              style={{
+                left: s.x,
+                top: s.y,
+                width: `${s.size}px`,
+                height: `${s.size}px`,
+                backgroundColor: s.color,
+                boxShadow: `0 0 ${s.size * 1.5}px ${s.color}`,
+                transform: "translate(-50%, -50%)",
+              }}
+            />
+          );
+        }
+      })}
       
     </div>
   );
