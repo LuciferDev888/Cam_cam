@@ -156,7 +156,7 @@ export function HeroSection() {
           </div>
 
           {/* Headline animations */}
-          <h1 className="font-serif font-black text-espresso-dark leading-[1.1] tracking-tight overflow-hidden">
+          <h1 className="font-serif font-black text-espresso-dark leading-[1.25] tracking-tight pb-2">
             <span
               className={cn(
                 "block text-4xl sm:text-5xl md:text-6xl lg:text-7xl whitespace-nowrap animate-slide-in-left duration-700 delay-100",
