@@ -51,7 +51,7 @@ export function AboutSection() {
           </div>
 
           {/* Handcrafted highlights (Columns 5-12 - Red Box Area) */}
-          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-10">
             {t.highlights.map((item, index) => (
               <div
                 key={index}
