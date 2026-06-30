@@ -47,7 +47,7 @@ const MENU_DATA_VI: MenuCategory[] = [
         price: "28,000",
         isFeatured: true,
         desc: "Sữa tươi nguyên kem thanh mát, thạch sương sáo dai giòn quyện cà phê phin thơm nồng.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/ca_phe_sua.png",
         ratings: [
           { label: "ĐỘ BÉO NGẬY", value: 4 },
           { label: "ĐỘ ĐẬM VỊ", value: 3 },
@@ -73,7 +73,7 @@ const MENU_DATA_VI: MenuCategory[] = [
         price: "20,000",
         isFeatured: false,
         desc: "Cà phê đen phin truyền thống quyện sữa đặc Ngôi Sao Phương Nam thơm béo.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/ca_phe_sua.png",
         ratings: [
           { label: "ĐỘ BÉO NGẬY", value: 3 },
           { label: "ĐỘ ĐẬM VỊ", value: 4 },
@@ -99,7 +99,7 @@ const MENU_DATA_VI: MenuCategory[] = [
         price: "22,000",
         isFeatured: false,
         desc: "Cà phê pha máy Espresso quyện sữa đặc thơm ngọt nhẹ.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/ca_phe_sua.png",
         ratings: [
           { label: "ĐỘ BÉO NGẬY", value: 3 },
           { label: "ĐỘ ĐẬM VỊ", value: 4 },
@@ -125,7 +125,7 @@ const MENU_DATA_VI: MenuCategory[] = [
         price: "25,000",
         isFeatured: false,
         desc: "Cà phê sữa nhiều đá ngọt béo đậm chất Sài Gòn phố thị.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/ca_phe_sua.png",
         ratings: [
           { label: "ĐỘ BÉO NGẬY", value: 3 },
           { label: "ĐỘ ĐẬM VỊ", value: 3 },
@@ -138,7 +138,7 @@ const MENU_DATA_VI: MenuCategory[] = [
         price: "25,000",
         isFeatured: false,
         desc: "Cà phê phin nóng quyện lớp kem trứng đánh bông mịn ngọt ngào, béo ngậy.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/ca_phe_kem_muoi.png",
         ratings: [
           { label: "ĐỘ BÉO NGẬY", value: 5 },
           { label: "ĐỘ ĐẬM VỊ", value: 4 },
@@ -151,7 +151,7 @@ const MENU_DATA_VI: MenuCategory[] = [
         price: "25,000",
         isFeatured: false,
         desc: "Thức uống nhiều sữa ít cà phê, thơm ngậy nhẹ nhàng cho ngày mới dịu êm.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/ca_phe_sua.png",
         ratings: [
           { label: "ĐỘ BÉO NGẬY", value: 4 },
           { label: "ĐỘ ĐẬM VỊ", value: 2 },
@@ -164,7 +164,7 @@ const MENU_DATA_VI: MenuCategory[] = [
         price: "25,000",
         isFeatured: false,
         desc: "Bạc xỉu truyền thống thêm lớp kem muối mặn mặn trung hòa vị ngọt béo cực tốt.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/ca_phe_kem_muoi.png",
         ratings: [
           { label: "ĐỘ BÉO NGẬY", value: 4.5 },
           { label: "ĐỘ ĐẬM VỊ", value: 2 },
@@ -183,7 +183,7 @@ const MENU_DATA_VI: MenuCategory[] = [
         price: "25,000",
         isFeatured: false,
         desc: "Bột cacao nguyên chất pha sữa đặc béo ngậy ngọt ngào.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/cacao_da.png",
         ratings: [
           { label: "ĐỘ BÉO NGẬY", value: 3.5 },
           { label: "ĐỘ ĐẬM VỊ", value: 3 },
@@ -196,7 +196,7 @@ const MENU_DATA_VI: MenuCategory[] = [
         price: "28,000",
         isFeatured: false,
         desc: "Cacao đậm đà thêm lớp kem muối mặn béo ngậy làm bùng nổ hương vị socola nguyên bản.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/cacao_da.png",
         ratings: [
           { label: "ĐỘ BÉO NGẬY", value: 5 },
           { label: "ĐỘ ĐẬM VỊ", value: 3.5 },
@@ -209,7 +209,7 @@ const MENU_DATA_VI: MenuCategory[] = [
         price: "28,000",
         isFeatured: false,
         desc: "Cacao nguyên chất quyện sữa tươi thanh trùng béo nhẹ và tạo bọt mịn màng.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/cacao_da.png",
         ratings: [
           { label: "ĐỘ BÉO NGẬY", value: 4 },
           { label: "ĐỘ ĐẬM VỊ", value: 3 },
@@ -299,7 +299,7 @@ const MENU_DATA_VI: MenuCategory[] = [
         price: "30,000",
         isFeatured: true,
         desc: "Trà sữa Blao Bảo Lộc thơm ngát hương hoa lài, kết hợp cốm non dẻo bùi và yến mạch hữu cơ.",
-        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        image: "/images/item/Tra_Blao_com_non_yen_mach.png",
         ratings: [
           { label: "ĐỘ BÉO NGẬY", value: 4.5 },
           { label: "ĐỘ ĐẬM VỊ", value: 3.5 },
@@ -338,7 +338,7 @@ const MENU_DATA_VI: MenuCategory[] = [
         price: "28,000",
         isFeatured: false,
         desc: "Trà sữa Blao kết hợp topping phô mai tươi núng nính dẻo ngậy cực kỳ kích thích vị giác.",
-        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        image: "/images/item/Tra_Blao_full_topping.png",
         ratings: [
           { label: "ĐỘ BÉO NGẬY", value: 4.5 },
           { label: "ĐỘ ĐẬM VỊ", value: 3 },
@@ -351,7 +351,7 @@ const MENU_DATA_VI: MenuCategory[] = [
         price: "32,000",
         isFeatured: false,
         desc: "Trà sữa Blao siêu to khổng lồ kết hợp đầy đủ trân châu đen, sương sáo, cốm non và phô mai tươi.",
-        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        image: "/images/item/Tra_Blao_full_topping.png",
         ratings: [
           { label: "ĐỘ BÉO NGẬY", value: 4.5 },
           { label: "ĐỘ ĐẬM VỊ", value: 3.5 },
@@ -396,7 +396,7 @@ const MENU_DATA_VI: MenuCategory[] = [
         price: "30,000",
         isFeatured: false,
         desc: "Trà gạo rang thơm lừng quyện thạch phô mai tươi béo mềm tan nhanh trong miệng.",
-        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        image: "/images/item/Tra_gao_rang_full_topping.png",
         ratings: [
           { label: "ĐỘ BÉO NGẬY", value: 4.5 },
           { label: "ĐỘ ĐẬM VỊ", value: 3.5 },
@@ -409,7 +409,7 @@ const MENU_DATA_VI: MenuCategory[] = [
         price: "35,000",
         isFeatured: false,
         desc: "Trà gạo rang sữa thơm nồng kết hợp trân châu đen, sương sáo, cốm non và thạch phô mai tươi.",
-        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        image: "/images/item/Tra_gao_rang_full_topping.png",
         ratings: [
           { label: "ĐỘ BÉO NGẬY", value: 4.5 },
           { label: "ĐỘ ĐẬM VỊ", value: 4 },
@@ -1038,7 +1038,7 @@ const MENU_DATA_EN: MenuCategory[] = [
         price: "28,000",
         isFeatured: true,
         desc: "Creamy fresh milk, chewy grass jelly blended with fragrant drip filter coffee.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/ca_phe_sua.png",
         ratings: [
           { label: "CREAMINESS", value: 4 },
           { label: "STRENGTH", value: 3 },
@@ -1064,7 +1064,7 @@ const MENU_DATA_EN: MenuCategory[] = [
         price: "20,000",
         isFeatured: false,
         desc: "Traditional drip black coffee sweetened with rich condensed milk.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/ca_phe_sua.png",
         ratings: [
           { label: "CREAMINESS", value: 3 },
           { label: "STRENGTH", value: 4 },
@@ -1090,7 +1090,7 @@ const MENU_DATA_EN: MenuCategory[] = [
         price: "22,000",
         isFeatured: false,
         desc: "Machine-brewed Espresso blended with sweet and creamy condensed milk.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/ca_phe_sua.png",
         ratings: [
           { label: "CREAMINESS", value: 3 },
           { label: "STRENGTH", value: 4 },
@@ -1116,7 +1116,7 @@ const MENU_DATA_EN: MenuCategory[] = [
         price: "25,000",
         isFeatured: false,
         desc: "Saigon style iced sweet milk coffee, sweet, creamy, and full of local vibe.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/ca_phe_sua.png",
         ratings: [
           { label: "CREAMINESS", value: 3 },
           { label: "STRENGTH", value: 3 },
@@ -1129,7 +1129,7 @@ const MENU_DATA_EN: MenuCategory[] = [
         price: "25,000",
         isFeatured: false,
         desc: "Hot filter coffee topped with sweet, fluffy, custard-like egg cream.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/ca_phe_kem_muoi.png",
         ratings: [
           { label: "CREAMINESS", value: 5 },
           { label: "STRENGTH", value: 4 },
@@ -1142,7 +1142,7 @@ const MENU_DATA_EN: MenuCategory[] = [
         price: "25,000",
         isFeatured: false,
         desc: "A milk-forward drink with just a touch of coffee, smooth and light.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/ca_phe_sua.png",
         ratings: [
           { label: "CREAMINESS", value: 4 },
           { label: "STRENGTH", value: 2 },
@@ -1155,7 +1155,7 @@ const MENU_DATA_EN: MenuCategory[] = [
         price: "25,000",
         isFeatured: false,
         desc: "Traditional Bac Xiu topped with salted cream to perfectly balance the sweetness.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/ca_phe_kem_muoi.png",
         ratings: [
           { label: "CREAMINESS", value: 4.5 },
           { label: "STRENGTH", value: 2 },
@@ -1174,7 +1174,7 @@ const MENU_DATA_EN: MenuCategory[] = [
         price: "25,000",
         isFeatured: false,
         desc: "Pure cacao powder blended with sweet condensed milk, warm or iced.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/cacao_da.png",
         ratings: [
           { label: "CREAMINESS", value: 3.5 },
           { label: "STRENGTH", value: 3 },
@@ -1187,7 +1187,7 @@ const MENU_DATA_EN: MenuCategory[] = [
         price: "28,000",
         isFeatured: false,
         desc: "Rich cocoa topped with salted cream to make the chocolate flavors pop.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/cacao_da.png",
         ratings: [
           { label: "CREAMINESS", value: 5 },
           { label: "STRENGTH", value: 3.5 },
@@ -1200,7 +1200,7 @@ const MENU_DATA_EN: MenuCategory[] = [
         price: "28,000",
         isFeatured: false,
         desc: "Pure cacao blended with steamed fresh milk and topped with smooth foam.",
-        image: "/images/item/ca_phe_muoi.png",
+        image: "/images/item/cacao_da.png",
         ratings: [
           { label: "CREAMINESS", value: 4 },
           { label: "STRENGTH", value: 3 },
@@ -1290,7 +1290,7 @@ const MENU_DATA_EN: MenuCategory[] = [
         price: "30,000",
         isFeatured: true,
         desc: "Jasmine-infused Blao milk tea combined with chewy young rice and organic oats.",
-        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        image: "/images/item/Tra_Blao_com_non_yen_mach.png",
         ratings: [
           { label: "CREAMINESS", value: 4.5 },
           { label: "STRENGTH", value: 3.5 },
@@ -1329,7 +1329,7 @@ const MENU_DATA_EN: MenuCategory[] = [
         price: "28,000",
         isFeatured: false,
         desc: "Jasmine milk tea paired with soft, gelatinous fresh cheese cubes.",
-        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        image: "/images/item/Tra_Blao_full_topping.png",
         ratings: [
           { label: "CREAMINESS", value: 4.5 },
           { label: "STRENGTH", value: 3 },
@@ -1342,7 +1342,7 @@ const MENU_DATA_EN: MenuCategory[] = [
         price: "32,000",
         isFeatured: false,
         desc: "Giant size Blao milk tea with black pearls, grass jelly, oats, and fresh cheese.",
-        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        image: "/images/item/Tra_Blao_full_topping.png",
         ratings: [
           { label: "CREAMINESS", value: 4.5 },
           { label: "STRENGTH", value: 3.5 },
@@ -1387,7 +1387,7 @@ const MENU_DATA_EN: MenuCategory[] = [
         price: "30,000",
         isFeatured: false,
         desc: "Genmaicha milk tea paired with soft fresh cheese jelly cubes.",
-        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        image: "/images/item/Tra_gao_rang_full_topping.png",
         ratings: [
           { label: "CREAMINESS", value: 4.5 },
           { label: "STRENGTH", value: 3.5 },
@@ -1400,7 +1400,7 @@ const MENU_DATA_EN: MenuCategory[] = [
         price: "35,000",
         isFeatured: false,
         desc: "Roasted rice milk tea loaded with pearls, grass jelly, oats, and fresh cheese.",
-        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        image: "/images/item/Tra_gao_rang_full_topping.png",
         ratings: [
           { label: "CREAMINESS", value: 4.5 },
           { label: "STRENGTH", value: 4 },
