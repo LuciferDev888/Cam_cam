@@ -49,6 +49,9 @@ export default async function LandingPage({ params }: PageProps) {
       {/* 1. Hero banner */}
       <HeroSection />
 
+      {/* Gallery Parallax Rows */}
+      <GalleryParallax />
+
       {/* 2. Giới thiệu ngắn về CAM CAM */}
       <AboutSection />
 
@@ -57,9 +60,6 @@ export default async function LandingPage({ params }: PageProps) {
 
       {/* 4. Menu / nhóm đồ uống tiêu biểu */}
       <MenuSection />
-
-      {/* Gallery Parallax Rows */}
-      <GalleryParallax />
 
       {/* 5. Không gian và câu chuyện thương hiệu */}
       <StorySection bgImage={content.story.bgImage} />

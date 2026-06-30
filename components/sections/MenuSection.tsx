@@ -2116,8 +2116,8 @@ export function MenuSection({ className }: MenuSectionProps) {
               
               {/* Category Tabs Wrapper */}
               <div className="space-y-4">
-                {/* Horizontal Scrollable Tabs */}
-                <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none snap-x -mx-2 px-2">
+                {/* Wrapping tabs layout to show all categories immediately */}
+                <div className="flex flex-wrap gap-2 pb-2">
                   {currentMenuData.map((cat, idx) => {
                     const IconComponent = cat.icon;
                     const isActive = activeCategoryIndex === idx;
