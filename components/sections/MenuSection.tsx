@@ -3,6 +3,9 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/lib/translations";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Coffee, Flame, Sprout, CupSoda, Wheat, Leaf, Sparkles, Citrus, GlassWater, IceCream, CircleDot, Beer, Sun, Bookmark } from "lucide-react";
 
 interface MenuItem {
@@ -21,7 +24,7 @@ interface MenuCategory {
   items: MenuItem[];
 }
 
-const MENU_DATA: MenuCategory[] = [
+const MENU_DATA_VI: MenuCategory[] = [
   {
     category: "Cà Phê",
     icon: Coffee,
@@ -463,7 +466,7 @@ const MENU_DATA: MenuCategory[] = [
         name: "Trà olong full topping",
         price: "40,000",
         isFeatured: false,
-        desc: "Sự kết hợp bùng nổ của ô long sữa đậm đà kèm trân châu đen, thạch đào và phô mai tươi dẻo ngậy.",
+        desc: "Sự kết hợp bùng nổ của ô long sữa đậm đà kèm trân châu đen, thạch đào và thạch phô mai tươi cực ngậy.",
         image: "/images/item/tra_sen_vang.png",
         ratings: [
           { label: "ĐỘ BÉO NGẬY", value: 4.5 },
@@ -1006,7 +1009,998 @@ const MENU_DATA: MenuCategory[] = [
           { label: "ĐỘ ĐẬM VỊ", value: 2 },
           { label: "ĐỘ NGỌT", value: 1 }
         ],
-        pairing: "GỢI Ý KÈM THEO: Hợp nhất khi nhâm nhi cùng trà ô long nóng."
+        pairing: "GỢI Ý KÈM THEO: Hạt hướng dương sấy mộc nhai vui miệng."
+      }
+    ]
+  }
+];
+
+const MENU_DATA_EN: MenuCategory[] = [
+  {
+    category: "Coffee",
+    icon: Coffee,
+    items: [
+      {
+        name: "Salted Coffee",
+        price: "25,000",
+        isFeatured: true,
+        desc: "Rich Robusta coffee combined with CAM CAM's signature cream cheese salted foam.",
+        image: "/images/item/ca_phe_muoi.png",
+        ratings: [
+          { label: "CREAMINESS", value: 5 },
+          { label: "STRENGTH", value: 4 },
+          { label: "SWEETNESS", value: 2 }
+        ],
+        pairing: "RECOMMENDED WITH: Hand-roasted rustic sunflower seeds."
+      },
+      {
+        name: "Fresh Milk Coffee w/ Grass Jelly",
+        price: "28,000",
+        isFeatured: true,
+        desc: "Creamy fresh milk, chewy grass jelly blended with fragrant drip filter coffee.",
+        image: "/images/item/ca_phe_muoi.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Add fresh cheese to double the richness."
+      },
+      {
+        name: "Filter Black Coffee",
+        price: "18,000",
+        isFeatured: false,
+        desc: "Traditional drip filter black coffee from robust hand-roasted Robusta beans.",
+        image: "/images/item/ca_phe_muoi.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 5 },
+          { label: "SWEETNESS", value: 1 }
+        ],
+        pairing: "RECOMMENDED WITH: Traditional red melon seeds."
+      },
+      {
+        name: "Filter Milk Coffee",
+        price: "20,000",
+        isFeatured: false,
+        desc: "Traditional drip black coffee sweetened with rich condensed milk.",
+        image: "/images/item/ca_phe_muoi.png",
+        ratings: [
+          { label: "CREAMINESS", value: 3 },
+          { label: "STRENGTH", value: 4 },
+          { label: "SWEETNESS", value: 4 }
+        ],
+        pairing: "RECOMMENDED WITH: Dried sunflower seeds."
+      },
+      {
+        name: "Machine Black Coffee",
+        price: "20,000",
+        isFeatured: false,
+        desc: "Quick and fresh machine-brewed Espresso, mildly fragrant Arabica profile.",
+        image: "/images/item/ca_phe_muoi.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 4 },
+          { label: "SWEETNESS", value: 1 }
+        ],
+        pairing: "RECOMMENDED WITH: Red melon seeds."
+      },
+      {
+        name: "Machine Milk Coffee",
+        price: "22,000",
+        isFeatured: false,
+        desc: "Machine-brewed Espresso blended with sweet and creamy condensed milk.",
+        image: "/images/item/ca_phe_muoi.png",
+        ratings: [
+          { label: "CREAMINESS", value: 3 },
+          { label: "STRENGTH", value: 4 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Serve with thin biscuits."
+      },
+      {
+        name: "Sai Gon Black Coffee",
+        price: "25,000",
+        isFeatured: false,
+        desc: "Traditional Saigon style iced black coffee, light and very refreshing.",
+        image: "/images/item/ca_phe_muoi.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 2 }
+        ],
+        pairing: "RECOMMENDED WITH: Serve with a cold glass of iced tea."
+      },
+      {
+        name: "Sai Gon Milk Coffee",
+        price: "25,000",
+        isFeatured: false,
+        desc: "Saigon style iced sweet milk coffee, sweet, creamy, and full of local vibe.",
+        image: "/images/item/ca_phe_muoi.png",
+        ratings: [
+          { label: "CREAMINESS", value: 3 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 4 }
+        ],
+        pairing: "RECOMMENDED WITH: Enjoy on a windy rainy afternoon."
+      },
+      {
+        name: "Egg Cream Coffee",
+        price: "25,000",
+        isFeatured: false,
+        desc: "Hot filter coffee topped with sweet, fluffy, custard-like egg cream.",
+        image: "/images/item/ca_phe_muoi.png",
+        ratings: [
+          { label: "CREAMINESS", value: 5 },
+          { label: "STRENGTH", value: 4 },
+          { label: "SWEETNESS", value: 4 }
+        ],
+        pairing: "RECOMMENDED WITH: Best enjoyed when warm."
+      },
+      {
+        name: "Bac Xiu",
+        price: "25,000",
+        isFeatured: false,
+        desc: "A milk-forward drink with just a touch of coffee, smooth and light.",
+        image: "/images/item/ca_phe_muoi.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4 },
+          { label: "STRENGTH", value: 2 },
+          { label: "SWEETNESS", value: 4 }
+        ],
+        pairing: "RECOMMENDED WITH: Perfect for those who prefer sweet over bitter."
+      },
+      {
+        name: "Salted Bac Xiu",
+        price: "25,000",
+        isFeatured: false,
+        desc: "Traditional Bac Xiu topped with salted cream to perfectly balance the sweetness.",
+        image: "/images/item/ca_phe_muoi.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4.5 },
+          { label: "STRENGTH", value: 2 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Add chewy grass jelly."
+      }
+    ]
+  },
+  {
+    category: "Cacao & Tea",
+    icon: Flame,
+    items: [
+      {
+        name: "Hot / Iced Cacao",
+        price: "25,000",
+        isFeatured: false,
+        desc: "Pure cacao powder blended with sweet condensed milk, warm or iced.",
+        image: "/images/item/ca_phe_muoi.png",
+        ratings: [
+          { label: "CREAMINESS", value: 3.5 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 4 }
+        ],
+        pairing: "RECOMMENDED WITH: Marshmallow topping."
+      },
+      {
+        name: "Salted Cacao Hot / Iced",
+        price: "28,000",
+        isFeatured: false,
+        desc: "Rich cocoa topped with salted cream to make the chocolate flavors pop.",
+        image: "/images/item/ca_phe_muoi.png",
+        ratings: [
+          { label: "CREAMINESS", value: 5 },
+          { label: "STRENGTH", value: 3.5 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Fresh cream cheese cubes."
+      },
+      {
+        name: "Cacao Latte",
+        price: "28,000",
+        isFeatured: false,
+        desc: "Pure cacao blended with steamed fresh milk and topped with smooth foam.",
+        image: "/images/item/ca_phe_muoi.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Serve hot on a rainy day."
+      },
+      {
+        name: "Herbal Ginger Tea",
+        price: "28,000",
+        isFeatured: false,
+        desc: "Warm ginger tea base sweetened with wild honey to warm the body.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 2.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Serve with fresh lemon slice."
+      }
+    ]
+  },
+  {
+    category: "Matcha",
+    icon: Sprout,
+    items: [
+      {
+        name: "Matcha Latte",
+        price: "35,000",
+        isFeatured: true,
+        desc: "Premium Uji matcha whisked with fresh milk, preserving its natural green hue.",
+        image: "/images/item/matcha_latte.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4.5 },
+          { label: "STRENGTH", value: 4 },
+          { label: "SWEETNESS", value: 2.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Add egg cream for ultimate béo."
+      },
+      {
+        name: "Matcha Roasted Rice",
+        price: "35,000",
+        isFeatured: false,
+        desc: "Pure matcha blended with the roasted fragrance of Japanese Genmaicha.",
+        image: "/images/item/matcha_latte.png",
+        ratings: [
+          { label: "CREAMINESS", value: 3.5 },
+          { label: "STRENGTH", value: 4 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Chewy honey black pearls."
+      },
+      {
+        name: "Jasmine Almond Matcha",
+        price: "35,000",
+        isFeatured: false,
+        desc: "Jasmine aroma blended with rich almond milk and delicate matcha green tea.",
+        image: "/images/item/matcha_latte.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4 },
+          { label: "STRENGTH", value: 3.5 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Topped with toasted almond slices."
+      },
+      {
+        name: "*Extra Gram (+Strong Tea)",
+        price: "5,000",
+        isFeatured: false,
+        desc: "Add 1g of pure Uji matcha for tea lovers who enjoy deep earthy bitterness.",
+        image: "/images/item/matcha_latte.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 5 },
+          { label: "SWEETNESS", value: 1 }
+        ],
+        pairing: "RECOMMENDED WITH: Add directly to your Matcha Latte."
+      }
+    ]
+  },
+  {
+    category: "Blao Tea",
+    icon: CupSoda,
+    items: [
+      {
+        name: "Blao Tea w/ Rice & Oats",
+        price: "30,000",
+        isFeatured: true,
+        desc: "Jasmine-infused Blao milk tea combined with chewy young rice and organic oats.",
+        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4.5 },
+          { label: "STRENGTH", value: 3.5 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Fresh melted cream cheese topping."
+      },
+      {
+        name: "Blao Tea w/ Black Pearls",
+        price: "25,000",
+        isFeatured: false,
+        desc: "Traditional Blao milk tea with a floral jasmine note and chewy black pearls.",
+        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        ratings: [
+          { label: "CREAMINESS", value: 3.5 },
+          { label: "STRENGTH", value: 3.5 },
+          { label: "SWEETNESS", value: 3.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Red melon seeds."
+      },
+      {
+        name: "Blao Tea w/ Cream Egg/Cheese",
+        price: "25,000",
+        isFeatured: false,
+        desc: "Blao milk tea topped with sweet custard egg cream or savory cream cheese foam.",
+        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        ratings: [
+          { label: "CREAMINESS", value: 5 },
+          { label: "STRENGTH", value: 3.5 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Sip the cream first, then mix the tea."
+      },
+      {
+        name: "Blao Tea w/ Fresh Cheese",
+        price: "28,000",
+        isFeatured: false,
+        desc: "Jasmine milk tea paired with soft, gelatinous fresh cheese cubes.",
+        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4.5 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Pairs very well with fire coconut jelly."
+      },
+      {
+        name: "Blao Tea Full Toppings",
+        price: "32,000",
+        isFeatured: false,
+        desc: "Giant size Blao milk tea with black pearls, grass jelly, oats, and fresh cheese.",
+        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4.5 },
+          { label: "STRENGTH", value: 3.5 },
+          { label: "SWEETNESS", value: 4 }
+        ],
+        pairing: "RECOMMENDED WITH: Perfect for friendly gatherings."
+      }
+    ]
+  },
+  {
+    category: "Rice Tea",
+    icon: Wheat,
+    items: [
+      {
+        name: "Roasted Rice w/ Oats & Rice",
+        price: "30,000",
+        isFeatured: true,
+        desc: "Roasted Japanese rice tea brewed with milk, chewy green rice, and organic oats.",
+        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4.5 },
+          { label: "STRENGTH", value: 4 },
+          { label: "SWEETNESS", value: 2.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Dried crispy young rice topping."
+      },
+      {
+        name: "Roasted Rice w/ Pearls",
+        price: "25,000",
+        isFeatured: false,
+        desc: "Genmaicha roasted green tea milk tea served with chewy honey black pearls.",
+        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        ratings: [
+          { label: "CREAMINESS", value: 3.5 },
+          { label: "STRENGTH", value: 4 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Crunchy sunflower seeds."
+      },
+      {
+        name: "Roasted Rice w/ Fresh Cheese",
+        price: "30,000",
+        isFeatured: false,
+        desc: "Genmaicha milk tea paired with soft fresh cheese jelly cubes.",
+        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4.5 },
+          { label: "STRENGTH", value: 3.5 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Serve cold and shaken."
+      },
+      {
+        name: "Roasted Rice Full Toppings",
+        price: "35,000",
+        isFeatured: false,
+        desc: "Roasted rice milk tea loaded with pearls, grass jelly, oats, and fresh cheese.",
+        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4.5 },
+          { label: "STRENGTH", value: 4 },
+          { label: "SWEETNESS", value: 3.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Satisfying treat for a long workday."
+      }
+    ]
+  },
+  {
+    category: "Oolong",
+    icon: Leaf,
+    items: [
+      {
+        name: "Oolong w/ Oats & Rice",
+        price: "35,000",
+        isFeatured: true,
+        desc: "Rich oolong tea base, creamy milk, chewy green rice, and organic oats.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4 },
+          { label: "STRENGTH", value: 4.5 },
+          { label: "SWEETNESS", value: 2.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Crispy white pearls."
+      },
+      {
+        name: "Oolong w/ Black Pearls",
+        price: "28,000",
+        isFeatured: false,
+        desc: "Rich oolong milk tea served with chewy honey black pearls.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 3 },
+          { label: "STRENGTH", value: 4.5 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Enjoy with melon seeds."
+      },
+      {
+        name: "Oolong w/ Custard/Cheese",
+        price: "35,000",
+        isFeatured: false,
+        desc: "Strong oolong tea base topped with custard egg cream or savory cheese foam.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 5 },
+          { label: "STRENGTH", value: 4.5 },
+          { label: "SWEETNESS", value: 2.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Drink at a 45-degree angle without straw."
+      },
+      {
+        name: "Oolong Full Toppings",
+        price: "40,000",
+        isFeatured: false,
+        desc: "Strong oolong milk tea loaded with pearls, peach jelly, and fresh cheese.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4.5 },
+          { label: "STRENGTH", value: 4.5 },
+          { label: "SWEETNESS", value: 3.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Served over crushed ice."
+      }
+    ]
+  },
+  {
+    category: "Almond",
+    icon: Sparkles,
+    items: [
+      {
+        name: "Almond Jasmine w/ Custard/Cheese",
+        price: "30,000",
+        isFeatured: true,
+        desc: "Floral jasmine note combined with almond milk, topped with sweet egg custard.",
+        image: "/images/item/matcha_latte.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4.8 },
+          { label: "STRENGTH", value: 3.5 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Fresh cheese topping."
+      },
+      {
+        name: "Almond Jasmine w/ Oats & Rice",
+        price: "30,000",
+        isFeatured: true,
+        desc: "Unique blend of jasmine almond milk, chewy young rice, and organic oats.",
+        image: "/images/item/matcha_latte.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4 },
+          { label: "STRENGTH", value: 3.5 },
+          { label: "SWEETNESS", value: 2.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Additional green rice topping."
+      },
+      {
+        name: "Almond Jasmine w/ Black Pearls",
+        price: "28,000",
+        isFeatured: false,
+        desc: "Rich jasmine almond milk tea served with chewy black pearls.",
+        image: "/images/item/matcha_latte.png",
+        ratings: [
+          { label: "CREAMINESS", value: 3.5 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 3.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Sunflower seeds."
+      },
+      {
+        name: "Almond Jasmine w/ Fresh Cheese",
+        price: "30,000",
+        isFeatured: false,
+        desc: "Jasmine almond tea paired with soft fresh cheese jelly cubes.",
+        image: "/images/item/matcha_latte.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4.5 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Add fire coconut jelly."
+      },
+      {
+        name: "Almond Jasmine Full Topping",
+        price: "32,000",
+        isFeatured: false,
+        desc: "Jasmine almond tea loaded with black pearls, peach jelly, and fresh cheese.",
+        image: "/images/item/matcha_latte.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4.5 },
+          { label: "STRENGTH", value: 3.5 },
+          { label: "SWEETNESS", value: 3.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Perfect for plant milk lovers."
+      }
+    ]
+  },
+  {
+    category: "Fruit Tea",
+    icon: Citrus,
+    items: [
+      {
+        name: "Soursop Tea",
+        price: "30,000",
+        isFeatured: true,
+        desc: "Cold brewed jasmine green tea served with sweet & sour marinated soursop pulp.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 3.5 },
+          { label: "SWEETNESS", value: 4 }
+        ],
+        pairing: "RECOMMENDED WITH: Crunchy fire coconut jelly."
+      },
+      {
+        name: "Special Jasmine Tea",
+        price: "30,000",
+        isFeatured: true,
+        desc: "Pure jasmine tea cold-brewed and sweetened with house-infused syrup.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 4 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Sunflower seeds."
+      },
+      {
+        name: "Pink Guava & Strawberry Tea",
+        price: "30,000",
+        isFeatured: true,
+        desc: "Cold brewed black tea blended with pink guava jam and sweet strawberry slices.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 3.5 },
+          { label: "SWEETNESS", value: 3.8 }
+        ],
+        pairing: "RECOMMENDED WITH: Sweet and crispy peach jelly."
+      },
+      {
+        name: "Mango Macchiato",
+        price: "30,000",
+        isFeatured: true,
+        desc: "Jasmine tea blended with fresh minced mango, topped with savory cheese foam.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 4 }
+        ],
+        pairing: "RECOMMENDED WITH: Fresh cheese topping."
+      },
+      {
+        name: "Golden Lotus Oolong",
+        price: "35,000",
+        isFeatured: true,
+        desc: "Cold brewed oolong tea paired with sweet lotus seeds, water chestnut, and cream cheese.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 3.5 },
+          { label: "STRENGTH", value: 4 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Crispy white pearls."
+      },
+      {
+        name: "Pomegranate Hibiscus",
+        price: "30,000",
+        isFeatured: false,
+        desc: "Tart ruby-red hibiscus tea served with fresh crunchy pomegranate seeds.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 3.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Chewy fire coconut jelly."
+      },
+      {
+        name: "Special Sweet Hibiscus",
+        price: "30,000",
+        isFeatured: false,
+        desc: "Tart hibiscus tea sweetened with mild herbal syrup to refresh the body.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Fresh orange slice."
+      },
+      {
+        name: "Mango Hibiscus",
+        price: "30,000",
+        isFeatured: false,
+        desc: "Unique blend of tart hibiscus tea and sweet ripe mango cubes.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 3.8 }
+        ],
+        pairing: "RECOMMENDED WITH: Coconut jelly."
+      },
+      {
+        name: "Soursop Hibiscus",
+        price: "30,000",
+        isFeatured: false,
+        desc: "Ruby hibiscus tea combined with sweet and sour soursop pulp.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 4 }
+        ],
+        pairing: "RECOMMENDED WITH: Iced coconut jelly."
+      },
+      {
+        name: "Peach Tea",
+        price: "30,000",
+        isFeatured: false,
+        desc: "Black tea brewed with sweet peach slices and fresh peach syrup.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 3.5 },
+          { label: "SWEETNESS", value: 3.8 }
+        ],
+        pairing: "RECOMMENDED WITH: Sweet marinated peach slice."
+      },
+      {
+        name: "Peach Jelly Tea",
+        price: "30,000",
+        isFeatured: false,
+        desc: "Traditional peach tea with sweet, chewy peach gelatin cubes.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 3.5 },
+          { label: "SWEETNESS", value: 4 }
+        ],
+        pairing: "RECOMMENDED WITH: Crispy white pearls."
+      },
+      {
+        name: "Peach Macchiato",
+        price: "30,000",
+        isFeatured: false,
+        desc: "Sweet peach tea topped with savory, salty cream cheese foam.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4 },
+          { label: "STRENGTH", value: 3.5 },
+          { label: "SWEETNESS", value: 3.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Drink chilled."
+      },
+      {
+        name: "Mango Passionfruit Tea",
+        price: "30,000",
+        isFeatured: false,
+        desc: "Jasmine tea blended with sweet mango and tart passionfruit juice.",
+        image: "/images/item/tra_sen_vang.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 3.5 },
+          { label: "SWEETNESS", value: 3.8 }
+        ],
+        pairing: "RECOMMENDED WITH: Sweet coconut jelly."
+      }
+    ]
+  },
+  {
+    category: "Fresh Juice",
+    icon: GlassWater,
+    items: [
+      {
+        name: "Lime Juice",
+        price: "25,000",
+        isFeatured: false,
+        desc: "Freshly squeezed lime juice sweetened with mild syrup.",
+        image: "/images/item/sua_chua_da.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Grass jelly topping."
+      },
+      {
+        name: "Hot Lime Juice",
+        price: "28,000",
+        isFeatured: false,
+        desc: "Warm fresh lime juice sweetened with honey to soothe the throat.",
+        image: "/images/item/sua_chua_da.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 2.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Perfect morning detox drink."
+      },
+      {
+        name: "Guava Juice",
+        price: "28,000",
+        isFeatured: false,
+        desc: "Cold pressed pink guava juice, preserving its rich Vitamin C.",
+        image: "/images/item/sua_chua_da.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 4 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Add a tiny pinch of chili salt."
+      },
+      {
+        name: "Pineapple Juice",
+        price: "28,000",
+        isFeatured: false,
+        desc: "Cold pressed sweet pineapple juice, refreshing and tropical.",
+        image: "/images/item/sua_chua_da.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 4 },
+          { label: "SWEETNESS", value: 3.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Coconut jelly."
+      },
+      {
+        name: "Orange Juice",
+        price: "28,000",
+        isFeatured: false,
+        desc: "Freshly squeezed orange juice containing pulps for a fresh texture.",
+        image: "/images/item/sua_chua_da.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 4.5 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Served chilled."
+      }
+    ]
+  },
+  {
+    category: "Yogurt",
+    icon: IceCream,
+    items: [
+      {
+        name: "Yogurt w/ Green Rice",
+        price: "30,000",
+        isFeatured: true,
+        desc: "Naturally fermented smooth yogurt combined with chewy young rice.",
+        image: "/images/item/sua_chua_da.png",
+        ratings: [
+          { label: "CREAMINESS", value: 4 },
+          { label: "STRENGTH", value: 3.5 },
+          { label: "SWEETNESS", value: 3.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Eat chilled and enjoy the chewiness."
+      },
+      {
+        name: "Iced Yogurt",
+        price: "25,000",
+        isFeatured: false,
+        desc: "House-made yogurt blended with shaved ice for a sweet and sour slushy.",
+        image: "/images/item/sua_chua_da.png",
+        ratings: [
+          { label: "CREAMINESS", value: 3 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Grass jelly topping."
+      },
+      {
+        name: "Mango Yogurt",
+        price: "30,000",
+        isFeatured: false,
+        desc: "Creamy yogurt topped with sweet ripe mango compote.",
+        image: "/images/item/sua_chua_da.png",
+        ratings: [
+          { label: "CREAMINESS", value: 3.5 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 3.8 }
+        ],
+        pairing: "RECOMMENDED WITH: Perfect choice for kids and ladies."
+      },
+      {
+        name: "Strawberry Yogurt",
+        price: "30,000",
+        isFeatured: false,
+        desc: "Creamy house-made yogurt topped with sweet & sour strawberry compote.",
+        image: "/images/item/sua_chua_da.png",
+        ratings: [
+          { label: "CREAMINESS", value: 3.5 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 3.8 }
+        ],
+        pairing: "RECOMMENDED WITH: Crunchy coconut jelly."
+      },
+      {
+        name: "Special Herbal Yogurt",
+        price: "30,000",
+        isFeatured: false,
+        desc: "House-made yogurt flavored with a dash of sweet herbal syrup.",
+        image: "/images/item/sua_chua_da.png",
+        ratings: [
+          { label: "CREAMINESS", value: 3.5 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 3.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Mix well before eating with shaved ice."
+      }
+    ]
+  },
+  {
+    category: "Toppings",
+    icon: CircleDot,
+    items: [
+      {
+        name: "Black / White Pearls",
+        price: "5,000",
+        isFeatured: false,
+        desc: "Chewy honey-infused black pearls or crunchy white konjac pearls.",
+        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 2 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Fits perfectly in milk teas & oolong teas."
+      },
+      {
+        name: "Grass Jelly",
+        price: "5,000",
+        isFeatured: false,
+        desc: "Soft herbal grass jelly made from natural jelly leaves, cooling and refreshing.",
+        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 2 },
+          { label: "SWEETNESS", value: 2 }
+        ],
+        pairing: "RECOMMENDED WITH: Add to Bac Xiu or Jasmine tea."
+      },
+      {
+        name: "Peach / Strawberry / Coconut Jelly",
+        price: "5,000",
+        isFeatured: false,
+        desc: "Fragrant, crunchy peach jelly or sweet chewy fire coconut jelly.",
+        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 2 },
+          { label: "SWEETNESS", value: 3.5 }
+        ],
+        pairing: "RECOMMENDED WITH: Great addition to Fruit Teas."
+      },
+      {
+        name: "Fresh Cheese / Cheese Ball",
+        price: "7,000",
+        isFeatured: false,
+        desc: "Soft fresh cheese cubes melting in the mouth, or savory cheese balls.",
+        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        ratings: [
+          { label: "CREAMINESS", value: 5 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Best in Matcha Latte or Roasted Rice tea."
+      },
+      {
+        name: "Green Rice",
+        price: "7,000",
+        isFeatured: false,
+        desc: "Chewy and aromatic young green rice grains from Hanoi.",
+        image: "/images/item/tra_gao_rang_tran_chau_den.png",
+        ratings: [
+          { label: "CREAMINESS", value: 3 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 2 }
+        ],
+        pairing: "RECOMMENDED WITH: Best in Yogurt w/ Green Rice or Oolong w/ Oats."
+      },
+      {
+        name: "Cream Topping (Salted/Egg/Cheese)",
+        price: "7,000",
+        isFeatured: false,
+        desc: "Salted cream foam, sweet egg custard foam, or thick savory cheese foam.",
+        image: "/images/item/ca_phe_muoi.png",
+        ratings: [
+          { label: "CREAMINESS", value: 5 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 3 }
+        ],
+        pairing: "RECOMMENDED WITH: Add to any tea to create a creamy macchiato layer."
+      }
+    ]
+  },
+  {
+    category: "Soft Drinks",
+    icon: Beer,
+    items: [
+      {
+        name: "Mineral Water",
+        price: "12,000",
+        isFeatured: false,
+        desc: "Pure bottled mineral water served chilled.",
+        image: "/images/item/sua_chua_da.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 1 },
+          { label: "SWEETNESS", value: 1 }
+        ],
+        pairing: "RECOMMENDED WITH: Convenient hydration on-the-go."
+      },
+      {
+        name: "Redbull",
+        price: "20,000",
+        isFeatured: false,
+        desc: "Energy drink in can to boost your focus and energy instantly.",
+        image: "/images/item/sua_chua_da.png",
+        ratings: [
+          { label: "CREAMINESS", value: 1 },
+          { label: "STRENGTH", value: 3 },
+          { label: "SWEETNESS", value: 5 }
+        ],
+        pairing: "RECOMMENDED WITH: Perfect for late night study sessions."
+      }
+    ]
+  },
+  {
+    category: "Seeds",
+    icon: Sun,
+    items: [
+      {
+        name: "Red Melon Seeds",
+        price: "15,000",
+        isFeatured: false,
+        desc: "A plate of red melon seeds, crispy and perfect for chatting.",
+        image: "/images/item/sua_chua_da.png",
+        ratings: [
+          { label: "CREAMINESS", value: 3 },
+          { label: "STRENGTH", value: 2 },
+          { label: "SWEETNESS", value: 1 }
+        ],
+        pairing: "RECOMMENDED WITH: Pairs well with any hot teas."
+      },
+      {
+        name: "Sunflower Seeds",
+        price: "15,000",
+        isFeatured: false,
+        desc: "A plate of crispy toasted sunflower seeds to keep conversations going.",
+        image: "/images/item/sua_chua_da.png",
+        ratings: [
+          { label: "CREAMINESS", value: 3.5 },
+          { label: "STRENGTH", value: 2 },
+          { label: "SWEETNESS", value: 1 }
+        ],
+        pairing: "RECOMMENDED WITH: Best served with hot oolong tea."
       }
     ]
   }
@@ -1017,16 +2011,32 @@ interface MenuSectionProps {
 }
 
 export function MenuSection({ className }: MenuSectionProps) {
-  const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
-  const [activeItem, setActiveItem] = useState<MenuItem>(MENU_DATA[0].items[0]);
+  const { lang } = useLanguage();
+  const t = translations[lang].menu;
+  const { ref, isInView } = useScrollAnimation();
 
-  // When active category changes, default the active item to the first item of that category
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
+
+  const currentMenuData = lang === "vi" ? MENU_DATA_VI : MENU_DATA_EN;
+  const [activeItem, setActiveItem] = useState<MenuItem>(currentMenuData[0].items[0]);
+
+  // Keep active item in sync when language switches or category changes
+  const activeItemName = activeItem?.name || "";
   useEffect(() => {
-    setActiveItem(MENU_DATA[activeCategoryIndex].items[0]);
-  }, [activeCategoryIndex]);
+    const currentCatItems = currentMenuData[activeCategoryIndex]?.items || [];
+    // Try to find the item with the same name or default to first
+    const matchedItem = currentCatItems.find(
+      (item) => item.name.toLowerCase() === activeItemName.toLowerCase()
+    ) || currentCatItems[0];
+    
+    if (matchedItem) {
+      setActiveItem(matchedItem);
+    }
+  }, [activeCategoryIndex, lang, currentMenuData, activeItemName]);
 
   return (
     <section
+      ref={ref}
       id="thuc-don"
       className={cn(
         "py-24 px-4 bg-paper-warm border-t border-border-taupe/30 relative overflow-hidden",
@@ -1044,31 +2054,42 @@ export function MenuSection({ className }: MenuSectionProps) {
         />
       </div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      {/* Expanded Container Width: max-w-7xl (Takes up wider space exactly like the red box) */}
+      <div className="max-w-7xl mx-auto relative z-10">
         
         {/* Main Grid Layout containing Sidebar (Left), Content List (Middle) and Spotlight Card (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Column 1: Sidebar Title (Columns 1-3) */}
-          <div className="lg:col-span-3 space-y-6 flex flex-col justify-center lg:pr-4">
+          <div
+            className={cn(
+              "lg:col-span-3 space-y-6 flex flex-col justify-center lg:pr-4 animate-slide-in-left duration-700",
+              isInView && "in-view"
+            )}
+          >
             <div className="flex items-center gap-3">
               <span className="w-10 h-10 rounded-full border border-border-taupe/40 flex items-center justify-center font-serif font-black text-sm text-olive-primary bg-beige-vintage/35">
                 04
               </span>
               <span className="text-xs font-bold tracking-widest uppercase text-olive-primary">
-                Thực đơn của chúng tôi
+                {t.subtitle}
               </span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-serif font-black text-espresso-dark leading-[1.15] tracking-tight">
-              Thực Đơn <span className="text-olive-primary block">Đồ Uống</span>
+            <h2 className="text-3xl md:text-5xl font-serif font-black text-espresso-dark leading-[1.15] tracking-tight uppercase">
+              {t.title}
             </h2>
             <p className="text-taupe-gray text-sm leading-relaxed font-medium font-sans">
-              Tuyển chọn các món cà phê mộc và các loại sữa thảo mộc thanh lành kết tinh tinh tế từ nguồn nông sản organic sạch, mang lại hương vị thơm dịu nguyên bản.
+              {t.description}
             </p>
           </div>
 
-          {/* Columns 4-12: The Interactive Menu Board */}
-          <div className="lg:col-span-9 grid grid-cols-1 md:grid-cols-12 gap-6 p-6 md:p-8 bg-latte-light/15 rounded-3xl border-2 border-border-taupe/40 shadow-vintage-lg bg-paper-warm/40 backdrop-blur-sm relative">
+          {/* Columns 4-12: The Interactive Menu Board (Wider Menu Box) */}
+          <div
+            className={cn(
+              "lg:col-span-9 grid grid-cols-1 md:grid-cols-12 gap-6 p-6 md:p-8 bg-latte-light/15 rounded-3xl border-2 border-border-taupe/40 shadow-vintage-lg bg-paper-warm/40 backdrop-blur-sm relative animate-slide-up duration-700 delay-200",
+              isInView && "in-view"
+            )}
+          >
             
             {/* Corner Ornaments */}
             <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-border-taupe/40"></div>
@@ -1083,7 +2104,7 @@ export function MenuSection({ className }: MenuSectionProps) {
               <div className="space-y-4">
                 {/* Horizontal Scrollable Tabs */}
                 <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none snap-x -mx-2 px-2">
-                  {MENU_DATA.map((cat, idx) => {
+                  {currentMenuData.map((cat, idx) => {
                     const IconComponent = cat.icon;
                     const isActive = activeCategoryIndex === idx;
                     return (
@@ -1107,7 +2128,7 @@ export function MenuSection({ className }: MenuSectionProps) {
 
               {/* Items List (max height with scrollable container) */}
               <div className="flex-grow overflow-y-auto max-h-[460px] pr-2 space-y-3 scrollbar-thin">
-                {MENU_DATA[activeCategoryIndex].items.map((item, idx) => {
+                {currentMenuData[activeCategoryIndex]?.items.map((item, idx) => {
                   const isActive = activeItem.name === item.name;
                   return (
                     <div
@@ -1139,7 +2160,7 @@ export function MenuSection({ className }: MenuSectionProps) {
                                 ★
                               </span>
                             )}
-                            <h4 className="font-serif font-black text-sm md:text-base text-espresso-dark group-hover:text-olive-primary transition-colors truncate">
+                            <h4 className="font-serif font-bold text-sm md:text-base text-espresso-dark group-hover:text-olive-primary transition-colors truncate">
                               {item.name}
                             </h4>
                           </div>
@@ -1160,78 +2181,85 @@ export function MenuSection({ className }: MenuSectionProps) {
 
             {/* Spotlight Card (Columns 8-12 of Content Area) */}
             <div className="md:col-span-5 flex">
-              <div className="w-full bg-latte-light/35 rounded-3xl border border-border-taupe/40 shadow-vintage-md p-6 flex flex-col justify-between space-y-6 relative overflow-hidden bg-paper-warm/50">
-                
-                {/* Vintage Top Accent */}
-                <div className="flex justify-between items-center relative z-10">
-                  <span className="text-[10px] font-bold tracking-widest uppercase text-olive-primary border border-olive-primary/20 px-2 py-0.5 rounded bg-olive-primary/5">
-                    {activeItem.isFeatured ? "★ SIGNATURE" : "RECOMMENDED"}
-                  </span>
-                  <Bookmark className="w-4 h-4 text-olive-primary fill-olive-primary/10" />
-                </div>
-
-                {/* Big Drink Image */}
-                <div className="relative w-full aspect-square max-h-[180px] flex items-center justify-center mx-auto z-10 p-2">
-                  <Image
-                    src={activeItem.image}
-                    alt={activeItem.name}
-                    fill
-                    sizes="180px"
-                    className="object-contain p-1 transform hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-
-                {/* Info and Ratings */}
-                <div className="space-y-4 relative z-10 flex-grow flex flex-col justify-end">
-                  <div className="space-y-1">
-                    <h3 className="text-xl md:text-2xl font-serif font-black text-espresso-dark leading-tight">
-                      {activeItem.name}
-                    </h3>
-                    <span className="text-sm font-bold text-olive-primary block font-sans">
-                      {activeItem.price} VND
+              {activeItem && (
+                <div className="w-full bg-latte-light/35 rounded-3xl border border-border-taupe/40 shadow-vintage-md p-6 flex flex-col justify-between space-y-6 relative overflow-hidden bg-paper-warm/50">
+                  
+                  {/* Vintage Top Accent */}
+                  <div className="flex justify-between items-center relative z-10">
+                    <span className="text-[10px] font-bold tracking-widest uppercase text-olive-primary border border-olive-primary/20 px-2 py-0.5 rounded bg-olive-primary/5">
+                      {activeItem.isFeatured ? (lang === "vi" ? "★ NÊN THỬ" : "★ SIGNATURE") : "RECOMMENDED"}
                     </span>
+                    <Bookmark className="w-4 h-4 text-olive-primary fill-olive-primary/10" />
                   </div>
 
-                  <p className="text-taupe-gray text-xs leading-relaxed font-medium font-sans">
-                    {activeItem.desc}
-                  </p>
+                  {/* Big Drink Image */}
+                  <div className="relative w-full aspect-square max-h-[180px] flex items-center justify-center mx-auto z-10 p-2">
+                    <Image
+                      src={activeItem.image}
+                      alt={activeItem.name}
+                      fill
+                      sizes="180px"
+                      className="object-contain p-1 transform hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
 
-                  {/* Sensory Ratings */}
-                  <div className="space-y-1.5 pt-2 border-t border-border-taupe/20">
-                    {activeItem.ratings.map((rate, rIdx) => (
-                      <div key={rIdx} className="flex justify-between items-center text-[10px] font-bold text-espresso-dark font-sans tracking-wide">
-                        <span>{rate.label}</span>
-                        <div className="flex gap-0.5">
-                          {[...Array(5)].map((_, starI) => (
-                            <div
-                              key={starI}
-                              className={cn(
-                                "w-2 h-2 rounded-full border border-olive-primary",
-                                starI < Math.floor(rate.value)
-                                  ? "bg-olive-primary"
-                                  : rate.value % 1 !== 0 && starI === Math.floor(rate.value)
-                                  ? "bg-olive-primary/50"
-                                  : "bg-transparent"
-                              )}
-                            />
-                          ))}
+                  {/* Info and Ratings */}
+                  <div className="space-y-4 relative z-10 flex-grow flex flex-col justify-end">
+                    <div className="space-y-1">
+                      <h3 className="text-xl md:text-2xl font-serif font-bold text-espresso-dark leading-tight">
+                        {activeItem.name}
+                      </h3>
+                      <span className="text-sm font-bold text-olive-primary block font-sans">
+                        {activeItem.price} VND
+                      </span>
+                    </div>
+
+                    <p className="text-taupe-gray text-xs leading-relaxed font-medium font-sans">
+                      {activeItem.desc}
+                    </p>
+
+                    {/* Sensory Ratings */}
+                    <div className="space-y-1.5 pt-2 border-t border-border-taupe/20">
+                      {activeItem.ratings.map((rate, rIdx) => (
+                        <div key={rIdx} className="flex justify-between items-center text-[10px] font-bold text-espresso-dark font-sans tracking-wide">
+                          <span>{rate.label}</span>
+                          <div className="flex gap-0.5">
+                            {[...Array(5)].map((_, starI) => (
+                              <div
+                                key={starI}
+                                className={cn(
+                                  "w-2 h-2 rounded-full border border-olive-primary",
+                                  starI < Math.floor(rate.value)
+                                    ? "bg-olive-primary"
+                                    : rate.value % 1 !== 0 && starI === Math.floor(rate.value)
+                                    ? "bg-olive-primary/50"
+                                    : "bg-transparent"
+                                )}
+                              />
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
 
-                  {/* Pairing Suggestion Box */}
-                  <div className="p-3 bg-paper-warm/85 rounded-xl border border-border-taupe/30 text-[10px] font-bold text-olive-primary tracking-wide leading-relaxed font-sans">
-                    {activeItem.pairing}
+                    {/* Pairing Suggestion Box */}
+                    <div className="p-3 bg-paper-warm/85 rounded-xl border border-border-taupe/30 text-[10px] font-bold text-olive-primary tracking-wide leading-relaxed font-sans">
+                      {activeItem.pairing}
+                    </div>
+
                   </div>
 
                 </div>
-
-              </div>
+              )}
             </div>
 
           </div>
 
+        </div>
+
+        {/* Footer Note */}
+        <div className="text-center mt-12 text-xs text-taupe-gray italic font-medium">
+          {t.footerNote}
         </div>
 
       </div>

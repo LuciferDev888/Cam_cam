@@ -3,6 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/lib/translations";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Coffee, ChefHat, Leaf, Sparkles, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 
 interface FeaturedItem {
@@ -15,17 +18,18 @@ interface FeaturedItem {
 }
 
 interface FeaturedProductsProps {
-  title: string;
-  subtitle?: string;
   items: FeaturedItem[];
   className?: string;
 }
 
 export function FeaturedProducts({
-  subtitle,
   items,
   className,
 }: FeaturedProductsProps) {
+  const { lang } = useLanguage();
+  const t = translations[lang].featured;
+  const { ref, isInView } = useScrollAnimation();
+
   const [activeIndex, setActiveIndex] = useState(0);
   const activeItem = items[activeIndex] || items[0];
 
@@ -48,29 +52,30 @@ export function FeaturedProducts({
   // 4 consistent signature values on the right column
   const signatureValues = [
     {
-      title: "HƯƠNG VỊ MỘC MẠC",
-      desc: "Rang mộc thủ công giữ trọn tinh dầu béo ngậy và vị đắng nhẹ nguyên bản.",
+      title: t.values[0].title,
+      desc: t.values[0].desc,
       icon: Coffee
     },
     {
-      title: "PHA CHẾ TẬN TÂM",
-      desc: "Đội ngũ barista giàu tâm huyết chăm chút tỉ mỉ cho từng ly nước phục vụ.",
+      title: t.values[1].title,
+      desc: t.values[1].desc,
       icon: ChefHat
     },
     {
-      title: "NGUYÊN LIỆU HỮU CƠ",
-      desc: "Lá trà và hạt cà phê được thu hái tự nhiên từ các nông trại organic uy tín.",
+      title: t.values[2].title,
+      desc: t.values[2].desc,
       icon: Leaf
     },
     {
-      title: "KẾT NỐI GIÁC QUAN",
-      desc: "Đánh thức mọi xúc cảm của bạn trong không gian ấm cúng, thư thái.",
+      title: t.values[3].title,
+      desc: t.values[3].desc,
       icon: Sparkles
     }
   ];
 
   return (
     <section
+      ref={ref}
       id="san-pham-noi-bat"
       className={cn(
         "py-24 px-4 bg-beige-vintage border-t border-border-taupe/30 relative overflow-hidden",
@@ -94,13 +99,18 @@ export function FeaturedProducts({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           {/* Column 1: Info and Story (Columns 1-4) */}
-          <div className="lg:col-span-4 space-y-6">
+          <div
+            className={cn(
+              "lg:col-span-4 space-y-6 animate-slide-in-left duration-700",
+              isInView && "in-view"
+            )}
+          >
             <div className="flex items-center gap-3">
               <span className="w-10 h-10 rounded-full border border-border-taupe/40 flex items-center justify-center font-serif font-black text-sm text-olive-primary bg-paper-warm/50 shadow-vintage-sm">
                 02
               </span>
               <span className="text-xs font-bold tracking-widest uppercase text-olive-primary">
-                {subtitle || "MÓN NGON TIÊU BIỂU"}
+                {t.subtitle}
               </span>
             </div>
             
@@ -124,7 +134,7 @@ export function FeaturedProducts({
                 onClick={handleScrollToMenu}
                 className="inline-flex items-center gap-2 text-sm font-serif font-bold text-olive-primary hover:text-moss-dark transition-colors group"
               >
-                KHÁM PHÁ THỰC ĐƠN
+                {t.cta}
                 <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
@@ -132,7 +142,12 @@ export function FeaturedProducts({
 
           {/* Column 2: Center Circular Carousel (Columns 5-8) */}
           <div className="lg:col-span-4 flex justify-center py-6">
-            <div className="relative w-[290px] h-[290px] md:w-[340px] md:h-[340px] rounded-full border border-border-taupe/50 flex items-center justify-center bg-paper-warm/30 shadow-vintage-lg backdrop-blur-sm p-4">
+            <div
+              className={cn(
+                "relative w-[290px] h-[290px] md:w-[340px] md:h-[340px] rounded-full border border-border-taupe/50 flex items-center justify-center bg-paper-warm/30 shadow-vintage-lg backdrop-blur-sm p-4 animate-fade-in duration-1000",
+                isInView && "in-view"
+              )}
+            >
               
               {/* Outer decorative ring */}
               <div className="absolute inset-2 rounded-full border border-dashed border-border-taupe/30 pointer-events-none" />
@@ -190,7 +205,17 @@ export function FeaturedProducts({
               {signatureValues.map((val, idx) => {
                 const IconComponent = val.icon;
                 return (
-                  <div key={idx} className="flex gap-4 items-start group">
+                  <div
+                    key={idx}
+                    className={cn(
+                      "flex gap-4 items-start group animate-slide-in-right duration-700",
+                      idx === 0 && "delay-100",
+                      idx === 1 && "delay-300",
+                      idx === 2 && "delay-500",
+                      idx === 3 && "delay-700",
+                      isInView && "in-view"
+                    )}
+                  >
                     <div className="flex-shrink-0 w-11 h-11 rounded-full border border-border-taupe/40 flex items-center justify-center text-olive-primary bg-paper-warm/40 shadow-vintage-sm group-hover:scale-105 transition-transform duration-300">
                       <IconComponent className="w-4 h-4" />
                     </div>

@@ -61,7 +61,7 @@ export default async function LandingPage({ params }: PageProps) {
       <StorySection {...content.story} />
 
       {/* 6. Lý do nên chọn CAM CAM */}
-      <BenefitsSection {...content.benefits} />
+      <BenefitsSection />
 
       {/* Map & Contact Info Section */}
       <MapSection />
@@ -80,24 +80,13 @@ export default async function LandingPage({ params }: PageProps) {
         </div>
         <div className="absolute inset-0 bg-paper-warm/85 z-5" />
         
-        <div className="max-w-xl mx-auto relative z-10">
-          <div className="text-center mb-10">
-            <span className="text-xs font-bold tracking-widest uppercase text-olive-primary">
-              Liên hệ với chúng tôi
-            </span>
-            <h2 className="text-3xl font-serif font-black text-espresso-dark tracking-tight mt-2">
-              Kết Nối Cùng CAM CAM
-            </h2>
-            <p className="mt-3 text-taupe-gray text-sm font-medium">
-              Đặt bàn trước để có chỗ ngồi ưng ý hoặc đăng ký nhận ưu đãi cho các gói dịch vụ nước uống.
-            </p>
-          </div>
+        <div className="max-w-xl mx-auto relative z-10 w-full">
           <LeadForm campaignName={content.campaignName} />
         </div>
       </section>
 
       {/* CTA Footer Section */}
-      <CTAFooterSection {...content.cta} />
+      <CTAFooterSection />
     </main>
   );
 }

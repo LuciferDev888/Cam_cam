@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Fraunces } from "next/font/google";
 import Script from "next/script";
 import { Header } from "@/components/layout/Header";
+import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -86,8 +87,10 @@ export default function RootLayout({
             />
           </noscript>
         )}
-        <Header />
-        {children}
+        <LanguageProvider>
+          <Header />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

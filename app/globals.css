@@ -62,3 +62,52 @@ body {
   70% { transform: translateY(-140px) translateX(18px) scale(1.5) rotate(8deg); opacity: 0.05; }
   100% { transform: translateY(-220px) translateX(-8px) scale(1.8) rotate(-6deg); opacity: 0; }
 }
+
+/* ===== Scroll and Entry Animations ===== */
+.animate-slide-up {
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: opacity 0.8s cubic-bezier(0.215, 0.61, 0.355, 1), transform 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.animate-slide-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-slide-in-left {
+  opacity: 0;
+  transform: translateX(-3rem);
+  transition: opacity 0.8s cubic-bezier(0.215, 0.61, 0.355, 1), transform 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.animate-slide-in-left.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animate-slide-in-right {
+  opacity: 0;
+  transform: translateX(3rem);
+  transition: opacity 0.8s cubic-bezier(0.215, 0.61, 0.355, 1), transform 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.animate-slide-in-right.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animate-fade-in {
+  opacity: 0;
+  transition: opacity 0.8s ease-out;
+}
+.animate-fade-in.in-view {
+  opacity: 1;
+}
+
+/* Scrollbar hide helper */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+

@@ -1,23 +1,27 @@
+"use client";
+
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/lib/translations";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface StorySectionProps {
-  title: string;
-  subtitle?: string;
-  content: string;
   bgImage: string;
   className?: string;
 }
 
 export function StorySection({
-  title,
-  subtitle,
-  content,
   bgImage,
   className,
 }: StorySectionProps) {
+  const { lang } = useLanguage();
+  const t = translations[lang].story;
+  const { ref, isInView } = useScrollAnimation();
+
   return (
     <section
+      ref={ref}
       id="cau-chuyen"
       className={cn(
         "relative py-24 px-4 bg-beige-vintage border-t border-border-taupe/30 overflow-hidden",
@@ -34,11 +38,17 @@ export function StorySection({
           className="object-cover"
         />
       </div>
+
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Large Space Photo */}
-          <div className="lg:col-span-6 relative flex justify-center">
+          {/* Large Space Photo (Columns 1-6 - Slide in Left) */}
+          <div
+            className={cn(
+              "lg:col-span-6 relative flex justify-center animate-slide-in-left duration-700",
+              isInView && "in-view"
+            )}
+          >
             <div className="relative w-full aspect-[4/3] md:aspect-[16/10] lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-vintage-lg border-[6px] border-paper-warm">
               <Image
                 src={bgImage}
@@ -50,17 +60,22 @@ export function StorySection({
             </div>
           </div>
 
-          {/* Story Card */}
-          <div className="lg:col-span-6 p-8 md:p-10 bg-paper-warm rounded-3xl border border-border-taupe/40 shadow-vintage-md space-y-6">
+          {/* Story Card (Columns 7-12 - Slide in Right) */}
+          <div
+            className={cn(
+              "lg:col-span-6 p-8 md:p-10 bg-paper-warm rounded-3xl border border-border-taupe/40 shadow-vintage-md space-y-6 animate-slide-in-right duration-700",
+              isInView && "in-view"
+            )}
+          >
             <span className="text-xs font-bold tracking-widest uppercase text-olive-primary">
-              {subtitle || "Câu Chuyện Thương Hiệu"}
+              {t.subtitle}
             </span>
-            <h2 className="text-2xl md:text-4xl font-serif font-black text-espresso-dark leading-tight">
-              {title}
+            <h2 className="text-2xl md:text-4xl font-serif font-bold text-espresso-dark leading-tight">
+              {t.title}
             </h2>
             <div className="w-16 h-[2px] bg-olive-primary"></div>
-            <p className="text-taupe-gray leading-relaxed text-sm md:text-base font-medium">
-              {content}
+            <p className="text-taupe-gray leading-relaxed text-sm md:text-base font-medium font-sans">
+              {t.content}
             </p>
           </div>
 

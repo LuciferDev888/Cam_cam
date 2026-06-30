@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Menu, X, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/context/LanguageContext";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [lang, setLang] = useState<"vi" | "en">("vi");
+  const { lang, setLang } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
