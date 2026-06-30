@@ -144,4 +144,56 @@ body {
   pointer-events: none;
 }
 
+/* ===== Floating and Swaying Animation for Featured Products ===== */
+@keyframes floatSway {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-5px) rotate(-1.5deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(5px) rotate(1.5deg);
+  }
+}
+.animate-float-sway {
+  animation: floatSway 6s ease-in-out infinite;
+}
+
+/* ===== Menu Item Entry Animation (1.5s Fade-In Slide-Up) ===== */
+@keyframes menuItemFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-menu-item-entry {
+  opacity: 0;
+  animation: menuItemFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ===== Fairy Dust Sparkle Float Animation ===== */
+@keyframes fairyFloat {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(0.4);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-50px) translateX(25px) scale(1.2);
+    opacity: 0.75;
+  }
+  80% {
+    transform: translateY(-90px) translateX(-15px) scale(0.6);
+    opacity: 0.15;
+  }
+}
+
+
 

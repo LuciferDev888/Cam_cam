@@ -12,6 +12,7 @@ import { CTAFooterSection } from "@/components/sections/CTAFooterSection";
 import { MapSection } from "@/components/sections/MapSection";
 import { LeadForm } from "@/components/forms/LeadForm";
 import { getLandingPageContent } from "@/lib/content";
+import { FairyDust } from "@/components/effects/FairyDust";
 
 interface PageProps {
   params: {
@@ -45,7 +46,10 @@ export default async function LandingPage({ params }: PageProps) {
   if (!content) notFound();
 
   return (
-    <main className="min-h-screen bg-paper-warm text-espresso-dark">
+    <main className="min-h-screen bg-paper-warm text-espresso-dark relative">
+      {/* Global Fairy Dust Sparkle Overlay */}
+      <FairyDust />
+
       {/* 1. Hero banner */}
       <HeroSection />
 

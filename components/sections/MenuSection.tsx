@@ -2140,8 +2140,8 @@ export function MenuSection({ className }: MenuSectionProps) {
                 </div>
               </div>
 
-              {/* Items List (max height with scrollable container) */}
-              <div className="flex-grow overflow-y-auto max-h-[460px] pr-2 space-y-3 scrollbar-thin">
+              {/* Items List - remounts using key to trigger 1.5s sequential animations */}
+              <div key={activeCategoryIndex} className="flex-grow overflow-y-auto max-h-[460px] pr-2 space-y-3 scrollbar-thin">
                 {currentMenuData[activeCategoryIndex]?.items.map((item, idx) => {
                   const isActive = activeItem.name === item.name;
                   return (
@@ -2149,8 +2149,9 @@ export function MenuSection({ className }: MenuSectionProps) {
                       key={idx}
                       onMouseEnter={() => setActiveItem(item)}
                       onClick={() => setActiveItem(item)}
+                      style={{ animationDelay: `${idx * 80}ms` }}
                       className={cn(
-                        "p-4 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-4 group",
+                        "p-4 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-4 group animate-menu-item-entry",
                         isActive
                           ? "bg-latte-light/45 border-olive-primary/40 shadow-vintage-sm"
                           : "bg-paper-warm/30 border-border-taupe/20 hover:border-olive-primary/30"
@@ -2221,18 +2222,22 @@ export function MenuSection({ className }: MenuSectionProps) {
 
                   {/* Info and Ratings */}
                   <div className="space-y-4 relative z-10 flex-grow flex flex-col justify-end">
-                    <div className="space-y-1">
-                      <h3 className="text-xl md:text-2xl font-serif font-bold text-espresso-dark leading-tight">
+                    {/* Fixed height title area to prevent menu wiggling */}
+                    <div className="space-y-1 min-h-[52px] flex flex-col justify-end">
+                      <h3 className="text-xl font-serif font-bold text-espresso-dark leading-tight line-clamp-2">
                         {activeItem.name}
                       </h3>
-                      <span className="text-sm font-bold text-olive-primary block font-sans">
+                      <span className="text-sm font-bold text-olive-primary block font-sans mt-0.5">
                         {activeItem.price} VND
                       </span>
                     </div>
 
-                    <p className="text-taupe-gray text-xs leading-relaxed font-medium font-sans">
-                      {activeItem.desc}
-                    </p>
+                    {/* Fixed height description container to prevent wiggling */}
+                    <div className="min-h-[50px] flex items-center">
+                      <p className="text-taupe-gray text-xs leading-relaxed font-medium font-sans line-clamp-3">
+                        {activeItem.desc}
+                      </p>
+                    </div>
 
                     {/* Sensory Ratings */}
                     <div className="space-y-1.5 pt-2 border-t border-border-taupe/20">

@@ -76,7 +76,7 @@ export function GalleryParallax() {
           <div
             style={{
               transform: `translateX(${row1Translate})`,
-              transition: "transform 0.15s cubic-bezier(0.1, 0.9, 0.2, 1)",
+              transition: "transform 1.5s cubic-bezier(0.1, 0.9, 0.2, 1)",
             }}
             className="flex gap-4 md:gap-6 flex-nowrap w-max transition-transform duration-300"
           >
@@ -106,7 +106,7 @@ export function GalleryParallax() {
           <div
             style={{
               transform: `translateX(${row2Translate})`,
-              transition: "transform 0.15s cubic-bezier(0.1, 0.9, 0.2, 1)",
+              transition: "transform 1.5s cubic-bezier(0.1, 0.9, 0.2, 1)",
             }}
             className="flex gap-4 md:gap-6 flex-nowrap w-max transition-transform duration-300"
           >

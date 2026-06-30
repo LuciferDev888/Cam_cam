@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/context/LanguageContext";
@@ -30,16 +30,43 @@ export function FeaturedProducts({
   const t = translations[lang].featured;
   const { ref, isInView } = useScrollAnimation();
 
+  // Active indexes for transition animations
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeItem = items[activeIndex] || items[0];
+  const [displayIndex, setDisplayIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Transition helper (fades out active item, swaps content, fades back in)
+  const triggerTransition = useCallback((nextIndex: number) => {
+    if (isTransitioning || nextIndex === activeIndex) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setActiveIndex(nextIndex);
+      setDisplayIndex(nextIndex);
+      setIsTransitioning(false);
+    }, 450); // Match CSS transition duration
+  }, [activeIndex, isTransitioning]);
 
   const handlePrev = () => {
-    setActiveIndex((prev) => (prev === 0 ? items.length - 1 : prev - 1));
+    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+    triggerTransition(nextIndex);
   };
 
   const handleNext = () => {
-    setActiveIndex((prev) => (prev === items.length - 1 ? 0 : prev + 1));
+    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+    triggerTransition(nextIndex);
   };
+
+  // Autoplay effect - transitions to next drink every 5s
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const nextIndex = (activeIndex + 1) % items.length;
+      triggerTransition(nextIndex);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [activeIndex, items.length, triggerTransition]);
+
+  const activeItem = items[displayIndex] || items[0];
 
   const handleScrollToMenu = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -100,6 +127,8 @@ export function FeaturedProducts({
           
           {/* Column 1: Info and Story (Columns 1-4) - Sequential left-to-right delays */}
           <div className="lg:col-span-4 space-y-6">
+            
+            {/* Step Indicator */}
             <div
               style={{ transitionDelay: "0ms" }}
               className={cn(
@@ -115,48 +144,84 @@ export function FeaturedProducts({
               </span>
             </div>
             
-            {/* Display active item's name as headline */}
-            <div
-              style={{ transitionDelay: "200ms" }}
-              className={cn(
-                "space-y-2 animate-slide-in-left duration-700",
-                isInView && "in-view"
-              )}
-            >
-              <span className="text-xs font-bold uppercase tracking-wider text-olive-primary">
-                {activeItem.badge || "SIGNATURE"}
-              </span>
-              <h2 className="text-4xl md:text-5xl font-serif font-black text-espresso-dark leading-[1.15] tracking-tight uppercase">
-                {activeItem.name}
-              </h2>
-            </div>
-
-            <p
-              style={{ transitionDelay: "400ms" }}
-              className={cn(
-                "text-taupe-gray text-sm leading-relaxed font-medium font-sans animate-slide-in-left duration-700",
-                isInView && "in-view"
-              )}
-            >
-              {activeItem.description}
-            </p>
-
-            <div
-              style={{ transitionDelay: "600ms" }}
-              className={cn(
-                "pt-2 animate-slide-in-left duration-700",
-                isInView && "in-view"
-              )}
-            >
-              <a
-                href="#thuc-don"
-                onClick={handleScrollToMenu}
-                className="inline-flex items-center gap-2 text-sm font-serif font-bold text-olive-primary hover:text-moss-dark transition-colors group"
+            {/* Active Drink Info Wrapper - fades/slides out, then slides back in cascadingly */}
+            <div className="space-y-4">
+              
+              {/* Badge */}
+              <div
+                style={{
+                  transitionDelay: isTransitioning ? "0ms" : "100ms",
+                }}
+                className={cn(
+                  "transition-all duration-500 transform",
+                  isTransitioning
+                    ? "opacity-0 -translate-y-2 scale-95"
+                    : "opacity-100 translate-y-0 scale-100"
+                )}
               >
-                {t.cta}
-                <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
-              </a>
+                <span className="text-xs font-bold uppercase tracking-wider text-olive-primary">
+                  {activeItem.badge || "SIGNATURE"}
+                </span>
+              </div>
+
+              {/* Title */}
+              <div
+                style={{
+                  transitionDelay: isTransitioning ? "0ms" : "250ms",
+                }}
+                className={cn(
+                  "transition-all duration-500 transform",
+                  isTransitioning
+                    ? "opacity-0 -translate-y-2 scale-95"
+                    : "opacity-100 translate-y-0 scale-100"
+                )}
+              >
+                <h2 className="text-4xl md:text-5xl font-serif font-black text-espresso-dark leading-[1.15] tracking-tight uppercase">
+                  {activeItem.name}
+                </h2>
+              </div>
+
+              {/* Description */}
+              <div
+                style={{
+                  transitionDelay: isTransitioning ? "0ms" : "400ms",
+                }}
+                className={cn(
+                  "transition-all duration-500 transform",
+                  isTransitioning
+                    ? "opacity-0 -translate-y-2 scale-95"
+                    : "opacity-100 translate-y-0 scale-100"
+                )}
+              >
+                <p className="text-taupe-gray text-sm leading-relaxed font-medium font-sans">
+                  {activeItem.description}
+                </p>
+              </div>
+
+              {/* CTA and link */}
+              <div
+                style={{
+                  transitionDelay: isTransitioning ? "0ms" : "550ms",
+                }}
+                className={cn(
+                  "pt-2 transition-all duration-500 transform",
+                  isTransitioning
+                    ? "opacity-0 -translate-y-2 scale-95"
+                    : "opacity-100 translate-y-0 scale-100"
+                )}
+              >
+                <a
+                  href="#thuc-don"
+                  onClick={handleScrollToMenu}
+                  className="inline-flex items-center gap-2 text-sm font-serif font-bold text-olive-primary hover:text-moss-dark transition-colors group"
+                >
+                  {t.cta}
+                  <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+
             </div>
+
           </div>
 
           {/* Column 2: Center Circular Carousel (Columns 5-8) - Fade/scale in */}
@@ -184,8 +249,15 @@ export function FeaturedProducts({
                 <ChevronLeft className="w-5 h-5" />
               </button>
 
-              {/* Central active product image wrapper */}
-              <div className="relative w-4/5 h-4/5 flex items-center justify-center transition-all duration-500 transform hover:scale-105 z-10">
+              {/* Central active product image wrapper - sways and floats gently, fades and shrinks on swap */}
+              <div
+                className={cn(
+                  "relative w-4/5 h-4/5 flex items-center justify-center transition-all duration-500 transform z-10",
+                  isTransitioning
+                    ? "opacity-0 scale-75 rotate-12"
+                    : "opacity-100 scale-100 rotate-0 animate-float-sway"
+                )}
+              >
                 <Image
                   src={activeItem.imageUrl}
                   alt={activeItem.name}
