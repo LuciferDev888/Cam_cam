@@ -46,19 +46,19 @@ export default async function LandingPage({ params }: PageProps) {
   return (
     <main className="min-h-screen bg-paper-warm text-espresso-dark">
       {/* 1. Hero banner */}
-      <HeroSection {...content.hero} />
+      <HeroSection />
 
       {/* 2. Giới thiệu ngắn về CAM CAM */}
-      <AboutSection {...content.about} />
+      <AboutSection />
 
       {/* 3. Sản phẩm nổi bật (5 best seller items) */}
-      <FeaturedProducts {...content.featured} />
+      <FeaturedProducts items={content.featured.items} />
 
       {/* 4. Menu / nhóm đồ uống tiêu biểu */}
       <MenuSection />
 
       {/* 5. Không gian và câu chuyện thương hiệu */}
-      <StorySection {...content.story} />
+      <StorySection bgImage={content.story.bgImage} />
 
       {/* 6. Lý do nên chọn CAM CAM */}
       <BenefitsSection />
