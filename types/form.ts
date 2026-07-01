@@ -1,8 +1,11 @@
 export interface LeadFormData {
   fullName: string;
-  email: string;
   phoneNumber: string;
-  drinkPreference?: string; // Optional: custom fields for drink LP
+  email?: string;
+  deliveryAddress?: string;
+  district?: string;
+  paymentMethod?: string;
+  drinkPreference?: string;
   note?: string;
 }
 
