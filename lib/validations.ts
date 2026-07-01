@@ -9,7 +9,7 @@ export const LeadFormSchema = z.object({
     .regex(/^(0|\+84)[3|5|7|8|9][0-9]{8}$/, { message: "Số điện thoại Việt Nam không hợp lệ" }),
   deliveryAddress: z.string().min(5, { message: "Vui lòng nhập địa chỉ nhận hàng chi tiết" }),
   district: z.string().min(1, { message: "Vui lòng chọn quận nhận hàng" }),
-  paymentMethod: z.string().default("cod"),
+  paymentMethod: z.string(),
   note: z.string().max(300, { message: "Ghi chú không quá 300 ký tự" }).optional(),
 });
 
