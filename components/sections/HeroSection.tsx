@@ -1,88 +1,135 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/context/LanguageContext";
-import { translations } from "@/lib/translations";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
-const TYPING_MESSAGES = {
-  vi: [
-    "Chậm lại, thưởng thức từng khoảnh khắc ☕",
-    "Nơi hạt cà phê kể câu chuyện tự nhiên 🌿",
-    "Mỗi ly trà là một bức thư tay gửi tới bạn 🍃",
-    "Organic · Handcrafted · Soulful 🧡",
-    "Bình yên giữa lòng phố thị 🏡",
-  ],
-  en: [
-    "Slow down, savor every single moment ☕",
-    "Where coffee beans tell natural stories 🌿",
-    "Every cup of tea is a hand-written letter for you 🍃",
-    "Organic · Handcrafted · Soulful 🧡",
-    "Peaceful retreat in the heart of the city 🏡",
-  ]
-};
+interface DrinkItem {
+  id: string;
+  name: string;
+  nameEn: string;
+  price: string;
+  badge: string;
+  badgeEn: string;
+  description: string;
+  descriptionEn: string;
+  imageUrl: string;
+  ingredients: string[];
+  ingredientsEn: string[];
+}
+
+const DRINK_DATA: DrinkItem[] = [
+  {
+    id: "hero1",
+    name: "Cà Phê Muối CAM CAM",
+    nameEn: "CAM CAM Salted Coffee",
+    price: "25.000đ",
+    badge: "Món Bán Chạy",
+    badgeEn: "Best Seller",
+    description: "Vị cà phê phin Robusta đậm đà truyền thống kết hợp hài hòa cùng lớp kem sữa mặn béo ngậy mịn màng đặc trưng.",
+    descriptionEn: "Rich traditional drip Robusta coffee harmoniously blended with CAM CAM's signature smooth and savory salted cream foam.",
+    imageUrl: "/images/item/ca_phe_muoi.png",
+    ingredients: ["Robusta hạt mộc rang tay", "Sữa đặc béo", "Kem sữa mặn độc quyền", "Muối biển hồng tinh khiết"],
+    ingredientsEn: ["Hand-roasted Robusta", "Sweet Condensed Milk", "Signature Savory Foam", "Pure Pink Sea Salt"]
+  },
+  {
+    id: "hero2",
+    name: "Matcha Latte Uji",
+    nameEn: "Uji Matcha Latte",
+    price: "35.000đ",
+    badge: "Món Mới Nên Thử",
+    badgeEn: "New Arrival",
+    description: "Bột trà xanh matcha Uji nguyên chất Nhật Bản, quyện sữa tươi thanh trùng béo ngậy giữ nguyên màu xanh tươi tự nhiên.",
+    descriptionEn: "Premium Japanese Uji matcha whisked with pasteurized fresh milk, preserving its vibrant natural green hue and rich earthy taste.",
+    imageUrl: "/images/item/matcha_latte.png",
+    ingredients: ["Bột Matcha Uji Nhật Bản", "Sữa tươi thanh trùng", "Kem sữa béo nhẹ", "Hạnh nhân nướng lát"],
+    ingredientsEn: ["Japanese Uji Matcha", "Pasteurized Fresh Milk", "Light Creamy Foam", "Toasted Almond Slices"]
+  },
+  {
+    id: "hero3",
+    name: "Trà Blao Cốm Non Yến Mạch",
+    nameEn: "Blao Tea w/ Oats & Green Rice",
+    price: "30.000đ",
+    badge: "Món Đặc Trưng",
+    badgeEn: "Signature Drink",
+    description: "Trà sữa Blao Bảo Lộc thơm ngát hương hoa nhài thanh khiết, kết hợp cốm non dẻo bùi Hà Nội và yến mạch hữu cơ béo ngậy.",
+    descriptionEn: "Jasmine-infused Blao tea blended with milk, combined with chewy young green rice grains and rich organic rolled oats.",
+    imageUrl: "/images/item/Tra_Blao_com_non_yen_mach.png",
+    ingredients: ["Trà lài Bảo Lộc ủ lạnh", "Cốm non tươi dẻo bùi", "Yến mạch hữu cơ", "Sữa tươi béo ngậy"],
+    ingredientsEn: ["Cold-brewed Jasmine Tea", "Chewy Young Green Rice", "Organic Rolled Oats", "Creamy Fresh Milk"]
+  },
+  {
+    id: "hero4",
+    name: "Trà Sen Vàng Kem Sữa",
+    nameEn: "Golden Lotus Oolong",
+    price: "35.000đ",
+    badge: "Được Yêu Thích",
+    badgeEn: "Customer Favorite",
+    description: "Cốt trà ô long Lâm Đồng đậm vị chát dịu kết hợp hạt sen ninh đường phèn bùi ngọt, củ năng giòn sần sật và kem sữa muối.",
+    descriptionEn: "Rich Oolong tea served with sweet caramelized lotus seeds, crunchy water chestnut cubes, and thick salted cream foam.",
+    imageUrl: "/images/item/tra_sen_vang.png",
+    ingredients: ["Trà ô long Lâm Đồng chát dịu", "Hạt sen ninh đường phèn", "Củ năng giòn sần sật", "Kem sữa mặn béo ngậy"],
+    ingredientsEn: ["Lâm Đồng Oolong Tea", "Caramelized Lotus Seeds", "Crunchy Water Chestnut", "Salted Cream Foam"]
+  }
+];
 
 export function HeroSection() {
   const { lang } = useLanguage();
-  const t = translations[lang].hero;
-  const currentMessages = TYPING_MESSAGES[lang];
+  const { ref } = useScrollAnimation();
 
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
+  // Active Indexes for Carousel
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [displayIndex, setDisplayIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Scroll animations
-  const { ref, isInView } = useScrollAnimation();
+  // Transition Helper (animates card fade out, swaps details, then fades card back in)
+  const triggerTransition = useCallback((nextIndex: number) => {
+    if (isTransitioning || nextIndex === activeIndex) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setActiveIndex(nextIndex);
+      setDisplayIndex(nextIndex);
+      setIsTransitioning(false);
+    }, 350);
+  }, [activeIndex, isTransitioning]);
 
-  useEffect(() => {
-    // Reset message index when language changes
-    setCurrentMessageIndex(0);
-    setDisplayedText("");
-    setIsDeleting(false);
-  }, [lang]);
-
-  useEffect(() => {
-    const currentFullText = currentMessages[currentMessageIndex];
-    if (!currentFullText) return;
-
-    const timeout = setTimeout(
-      () => {
-        if (!isDeleting) {
-          if (displayedText.length < currentFullText.length) {
-            setDisplayedText(currentFullText.slice(0, displayedText.length + 1));
-          } else {
-            setTimeout(() => setIsDeleting(true), 2500);
-          }
-        } else {
-          if (displayedText.length > 0) {
-            setDisplayedText(displayedText.slice(0, displayedText.length - 1));
-          } else {
-            setIsDeleting(false);
-            setCurrentMessageIndex((prev) => (prev + 1) % currentMessages.length);
-          }
-        }
-      },
-      isDeleting ? 25 : 55
-    );
-
-    return () => clearTimeout(timeout);
-  }, [displayedText, isDeleting, currentMessageIndex, currentMessages]);
-
-  const handleScrollToMenu = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const target = document.querySelector("#thuc-don");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+  const handleNext = () => {
+    const nextIndex = (activeIndex + 1) % DRINK_DATA.length;
+    triggerTransition(nextIndex);
   };
+
+  // Autoplay carousel every 8 seconds if untouched
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const nextIndex = (activeIndex + 1) % DRINK_DATA.length;
+      triggerTransition(nextIndex);
+    }, 8000);
+    return () => clearInterval(timer);
+  }, [activeIndex, triggerTransition]);
+
+  // Compute position relative to active index
+  const getPositionClass = (idx: number) => {
+    const len = DRINK_DATA.length;
+    const diff = (idx - activeIndex + len) % len;
+    if (diff === 0) return "center";
+    if (diff === 1) return "right";
+    if (diff === len - 1) return "left";
+    return "hidden";
+  };
+
+  const activeDrink = DRINK_DATA[displayIndex] || DRINK_DATA[0];
+  const activeName = lang === "vi" ? activeDrink.name : activeDrink.nameEn;
+  const activeDesc = lang === "vi" ? activeDrink.description : activeDrink.descriptionEn;
+  const activeBadge = lang === "vi" ? activeDrink.badge : activeDrink.badgeEn;
+  const activeIngredients = lang === "vi" ? activeDrink.ingredients : activeDrink.ingredientsEn;
 
   const handleScrollToContact = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    const target = document.querySelector("#lien-he");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    const contactSection = document.querySelector("#lien-he");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
@@ -90,9 +137,9 @@ export function HeroSection() {
     <section
       ref={ref}
       id="trang-chu"
-      className="relative py-36 md:py-48 px-4 overflow-hidden min-h-[95vh] flex items-center bg-paper-warm"
+      className="relative pt-32 pb-24 md:py-36 px-4 overflow-hidden min-h-screen flex items-center bg-paper-warm"
     >
-      {/* Background Image & Soft Vintage Overlay */}
+      {/* Background Banner Pattern & Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/background/background_hero.png"
@@ -101,133 +148,173 @@ export function HeroSection() {
           priority
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#F4EFDC]/95 via-[#F4EFDC]/75 to-[#F4EFDC]/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#F4EFDC]/95 via-[#F4EFDC]/80 to-[#F4EFDC]/40" />
       </div>
 
-      {/* Smoke Effect - right side */}
-      <div className="absolute right-0 top-0 bottom-0 w-2/3 z-[5] pointer-events-none overflow-hidden">
+      {/* Sensory Steam Smoke Effects behind the cup carousel */}
+      <div className="absolute left-0 lg:left-[10%] top-0 bottom-0 w-full lg:w-1/2 z-[5] pointer-events-none overflow-hidden">
         <div
-          className="absolute right-[12%] bottom-[20%] w-28 h-64 rounded-full"
+          className="absolute left-[35%] bottom-[25%] w-24 h-64 rounded-full opacity-40"
           style={{
-            background: "radial-gradient(ellipse, rgba(167,159,137,0.55) 0%, rgba(167,159,137,0.15) 40%, transparent 70%)",
-            animation: "smokeRise1 7s ease-in-out infinite",
-            filter: "blur(18px)",
+            background: "radial-gradient(ellipse, rgba(167,159,137,0.45) 0%, rgba(167,159,137,0.1) 45%, transparent 70%)",
+            animation: "smokeRise1 8s ease-in-out infinite",
+            filter: "blur(20px)",
           }}
         />
         <div
-          className="absolute right-[22%] bottom-[15%] w-24 h-52 rounded-full"
-          style={{
-            background: "radial-gradient(ellipse, rgba(167,159,137,0.45) 0%, rgba(167,159,137,0.1) 40%, transparent 70%)",
-            animation: "smokeRise2 9s ease-in-out infinite 1.5s",
-            filter: "blur(22px)",
-          }}
-        />
-        <div
-          className="absolute right-[16%] bottom-[25%] w-20 h-48 rounded-full"
+          className="absolute left-[20%] bottom-[18%] w-20 h-52 rounded-full opacity-40"
           style={{
             background: "radial-gradient(ellipse, rgba(167,159,137,0.4) 0%, transparent 65%)",
-            animation: "smokeRise3 11s ease-in-out infinite 3s",
-            filter: "blur(26px)",
+            animation: "smokeRise2 10s ease-in-out infinite 2s",
+            filter: "blur(24px)",
           }}
         />
         <div
-          className="absolute right-[8%] bottom-[10%] w-36 h-44 rounded-full"
+          className="absolute left-[50%] bottom-[20%] w-28 h-48 rounded-full opacity-30"
           style={{
             background: "radial-gradient(ellipse, rgba(167,159,137,0.3) 0%, transparent 60%)",
-            animation: "smokeRise4 13s ease-in-out infinite 0.5s",
-            filter: "blur(30px)",
+            animation: "smokeRise3 12s ease-in-out infinite 4s",
+            filter: "blur(28px)",
           }}
         />
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10 w-full">
-        <div className="max-w-4xl space-y-8">
+        {/* Main Grid Layout - Cups Carousel Left/Center, details card on Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center">
           
-          {/* Badge animation - slides in left, delay: 150ms */}
-          <div
-            style={{ transitionDelay: "150ms" }}
-            className={cn(
-              "animate-slide-in-left duration-700",
-              isInView && "in-view"
-            )}
-          >
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase bg-olive-primary/10 text-olive-primary border border-olive-primary/20">
-              {t.badge}
-            </span>
+          {/* Left/Center Column: Drink Carousel (Columns 1-7) */}
+          <div className="lg:col-span-7 flex flex-col items-center justify-center relative w-full h-[380px] md:h-[480px]">
+            <div className="relative w-full h-full flex items-center justify-center">
+              {DRINK_DATA.map((drink, idx) => {
+                const pos = getPositionClass(idx);
+                return (
+                  <div
+                    key={drink.id}
+                    className={cn(
+                      "absolute transition-all duration-700 ease-out transform flex flex-col items-center justify-center",
+                      pos === "center" && "translate-x-0 scale-100 z-30 opacity-100 pointer-events-auto",
+                      pos === "left" && "-translate-x-[35%] md:-translate-x-[40%] scale-70 z-10 opacity-30 blur-[1px] pointer-events-none",
+                      pos === "right" && "translate-x-[35%] md:translate-x-[40%] scale-70 z-10 opacity-30 blur-[1px] pointer-events-none",
+                      pos === "hidden" && "scale-50 opacity-0 z-0 pointer-events-none"
+                    )}
+                  >
+                    {/* Glowing aura sparkles always behind the active drink */}
+                    {pos === "center" && <div className="aura-sparkle opacity-90 scale-95" />}
+                    
+                    {/* Drink Cup Image */}
+                    <div className="relative w-[180px] h-[260px] md:w-[260px] md:h-[370px] flex items-center justify-center z-10">
+                      <Image
+                        src={drink.imageUrl}
+                        alt={drink.name}
+                        fill
+                        sizes="(max-width: 768px) 180px, 260px"
+                        className={cn(
+                          "object-contain drop-shadow-[0_15px_30px_rgba(47,36,28,0.22)]",
+                          pos === "center" && "animate-float-sway"
+                        )}
+                        priority={idx === 0}
+                      />
+                    </div>
+
+                    {/* "Món tiếp theo" (Next Drink) Button superimposed below center cup */}
+                    {pos === "center" && (
+                      <button
+                        onClick={handleNext}
+                        className="mt-6 px-6 py-2.5 bg-olive-primary/90 hover:bg-olive-primary text-paper-warm font-sans font-bold text-xs uppercase tracking-widest rounded-full shadow-vintage-sm hover:shadow-vintage-md hover:scale-105 transition-all duration-300 flex items-center gap-1.5 z-40"
+                      >
+                        {lang === "vi" ? "Món tiếp theo" : "Next Drink"}
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Headline animations - slides in left. Dòng 1 (350ms) ➔ Dòng 2 (600ms) */}
-          <h1 className="font-serif font-black text-espresso-dark leading-[1.25] tracking-tight pb-2">
-            <span
-              style={{ transitionDelay: "350ms" }}
-              className={cn(
-                "block text-4xl sm:text-5xl md:text-6xl lg:text-7xl whitespace-normal md:whitespace-nowrap animate-slide-in-left duration-700",
-                isInView && "in-view"
-              )}
-            >
-              {t.headlineLine1}
-            </span>
-            <span
-              style={{ transitionDelay: "600ms" }}
-              className={cn(
-                "block text-4xl sm:text-5xl md:text-6xl lg:text-7xl whitespace-normal md:whitespace-nowrap mt-2 text-olive-primary animate-slide-in-left duration-700",
-                isInView && "in-view"
-              )}
-            >
-              {t.headlineLine2}
-            </span>
-          </h1>
+          {/* Right Column: Drink Details Card (Columns 8-12) */}
+          <div className="lg:col-span-5 flex justify-center">
+            <div className="w-full max-w-[400px] bg-[#FAF7F0] border border-border-taupe/35 shadow-vintage-lg rounded-3xl p-6 md:p-8 flex flex-col justify-between space-y-6 relative overflow-hidden bg-paper-warm/45 backdrop-blur-sm">
+              
+              {/* Corner Ornaments */}
+              <div className="absolute top-3 left-3 w-4 h-4 border-t border-l border-border-taupe/30"></div>
+              <div className="absolute top-3 right-3 w-4 h-4 border-t border-r border-border-taupe/30"></div>
+              <div className="absolute bottom-3 left-3 w-4 h-4 border-b border-l border-border-taupe/30"></div>
+              <div className="absolute bottom-3 right-3 w-4 h-4 border-b border-r border-border-taupe/30"></div>
 
-          {/* Subheadline animation - slides in left, delay: 850ms */}
-          <div
-            style={{ transitionDelay: "850ms" }}
-            className={cn(
-              "animate-slide-in-left duration-700",
-              isInView && "in-view"
-            )}
-          >
-            <p className="text-lg md:text-xl text-taupe-gray leading-relaxed max-w-xl font-medium">
-              {t.subheadline}
-            </p>
+              {/* Transition details contents */}
+              <div
+                className={cn(
+                  "transition-all duration-350 transform space-y-6 flex-grow flex flex-col justify-between",
+                  isTransitioning
+                    ? "opacity-0 translate-x-4 scale-98"
+                    : "opacity-100 translate-x-0 scale-100"
+                )}
+              >
+                {/* Top Badge and Counter */}
+                <div className="flex justify-between items-center relative z-10">
+                  <span className="text-[10px] font-bold tracking-widest uppercase text-olive-primary border border-olive-primary/25 px-2.5 py-1 rounded-md bg-olive-primary/5">
+                    {activeBadge}
+                  </span>
+                  <span className="text-sm font-serif font-black text-olive-primary/80">
+                    0{displayIndex + 1}
+                  </span>
+                </div>
+
+                {/* Name and Description */}
+                <div className="space-y-3">
+                  <h1 className="text-2xl md:text-3xl font-serif font-black text-espresso-dark leading-tight uppercase tracking-tight">
+                    {activeName}
+                  </h1>
+                  {/* Fixed height description to prevent card wiggling */}
+                  <div className="min-h-[64px] flex items-center">
+                    <p className="text-taupe-gray text-xs md:text-sm leading-relaxed font-sans font-medium">
+                      {activeDesc}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Price Display */}
+                <div className="border-t border-b border-border-taupe/20 py-3 flex items-center justify-between">
+                  <span className="text-xs font-bold uppercase tracking-wider text-espresso-dark/70 font-sans">
+                    {lang === "vi" ? "Giá chuẩn" : "Standard Price"}
+                  </span>
+                  <span className="text-2xl font-serif font-black text-olive-primary">
+                    {activeDrink.price}
+                  </span>
+                </div>
+
+                {/* Ingredients Bullets list */}
+                <div className="space-y-2">
+                  <span className="text-[10px] font-bold tracking-wider uppercase text-espresso-dark/60 block font-sans">
+                    {lang === "vi" ? "THÀNH PHẦN CHÍNH" : "MAIN INGREDIENTS"}
+                  </span>
+                  <ul className="space-y-1.5 pl-1.5">
+                    {activeIngredients.map((ing, iIdx) => (
+                      <li key={iIdx} className="text-xs font-sans font-semibold text-taupe-gray flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-olive-primary shrink-0" />
+                        {ing}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Primary CTA Action Button */}
+                <div className="pt-2">
+                  <a
+                    href="#lien-he"
+                    onClick={handleScrollToContact}
+                    className="w-full text-center py-3.5 bg-olive-primary hover:bg-moss-dark text-paper-warm font-sans font-bold text-xs uppercase tracking-widest rounded-xl shadow-vintage-sm hover:shadow-vintage-md hover:-translate-y-0.5 transition-all duration-300 block"
+                  >
+                    {lang === "vi" ? "Đặt Trải Nghiệm Ngay" : "Book a Table"}
+                  </a>
+                </div>
+
+              </div>
+
+            </div>
           </div>
 
-          {/* Typing Effect - slides in left, delay: 1050ms */}
-          <div
-            style={{ transitionDelay: "1050ms" }}
-            className={cn(
-              "h-10 flex items-center animate-slide-in-left duration-700",
-              isInView && "in-view"
-            )}
-          >
-            <span className="font-serif text-lg md:text-xl text-olive-primary italic font-medium">
-              {displayedText}
-              <span className="inline-block w-[2px] h-5 bg-olive-primary ml-1 animate-pulse" />
-            </span>
-          </div>
-
-          {/* Buttons animation - slides in left, delay: 1250ms */}
-          <div
-            style={{ transitionDelay: "1250ms" }}
-            className={cn(
-              "pt-2 flex flex-col sm:flex-row gap-4 animate-slide-in-left duration-700",
-              isInView && "in-view"
-            )}
-          >
-            <a
-              href="#lien-he"
-              onClick={handleScrollToContact}
-              className="inline-flex items-center justify-center px-8 py-4 bg-olive-primary hover:bg-moss-dark text-paper-warm font-serif font-bold rounded-xl shadow-vintage-sm hover:shadow-vintage-md transition-all duration-300 transform hover:-translate-y-0.5 text-center"
-            >
-              {t.ctaPrimary}
-            </a>
-            <a
-              href="#thuc-don"
-              onClick={handleScrollToMenu}
-              className="inline-flex items-center justify-center px-8 py-4 bg-beige-vintage hover:bg-latte-light text-espresso-dark font-semibold rounded-xl border border-border-taupe/40 transition-all duration-300 text-center shadow-vintage-sm"
-            >
-              {t.ctaSecondary}
-            </a>
-          </div>
         </div>
       </div>
     </section>
