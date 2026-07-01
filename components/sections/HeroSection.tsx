@@ -88,6 +88,14 @@ export function HeroSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [displayIndex, setDisplayIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 50);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Transition Helper (instant cup slide update, rapid details transition)
   const triggerTransition = useCallback((nextIndex: number) => {
@@ -198,7 +206,12 @@ export function HeroSection() {
           
           {/* Left/Center Column: Drink Carousel (Columns 1-7) */}
           {/* Increased container height to accommodate larger cup sizes on all viewports */}
-          <div className="lg:col-span-7 flex flex-col items-center justify-center relative w-full h-[520px] md:h-[680px] overflow-visible">
+          <div
+            className={cn(
+              "lg:col-span-7 flex flex-col items-center justify-center relative w-full h-[520px] md:h-[680px] overflow-visible transition-all duration-[2000ms] ease-out transform",
+              isLoaded ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-16 scale-95"
+            )}
+          >
             <div className="relative w-full h-full flex items-center justify-center">
               {DRINK_DATA.map((drink, idx) => {
                 const pos = getPositionClass(idx);
@@ -247,7 +260,12 @@ export function HeroSection() {
           </div>
 
           {/* Right Column: Drink Details Card (Columns 8-12) */}
-          <div className="lg:col-span-5 flex justify-center">
+          <div
+            className={cn(
+              "lg:col-span-5 flex justify-center transition-all duration-[2000ms] ease-out transform delay-100",
+              isLoaded ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-16 scale-95"
+            )}
+          >
             <div className="w-full max-w-[400px] bg-[#FAF7F0] border border-border-taupe/35 shadow-vintage-lg rounded-3xl p-6 md:p-8 flex flex-col justify-between space-y-6 relative overflow-hidden bg-paper-warm/45 backdrop-blur-sm">
               
               {/* Corner Ornaments */}

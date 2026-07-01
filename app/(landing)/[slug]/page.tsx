@@ -2,12 +2,9 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { AboutSection } from "@/components/sections/AboutSection";
 import { FeaturedProducts } from "@/components/sections/FeaturedProducts";
 import { MenuSection } from "@/components/sections/MenuSection";
-import { GalleryParallax } from "@/components/sections/GalleryParallax";
 import { StorySection } from "@/components/sections/StorySection";
-import { BenefitsSection } from "@/components/sections/BenefitsSection";
 import { CTAFooterSection } from "@/components/sections/CTAFooterSection";
 import { MapSection } from "@/components/sections/MapSection";
 import { LeadForm } from "@/components/forms/LeadForm";
@@ -53,12 +50,6 @@ export default async function LandingPage({ params }: PageProps) {
       {/* 1. Hero banner */}
       <HeroSection />
 
-      {/* Gallery Parallax Rows */}
-      <GalleryParallax />
-
-      {/* 2. Giới thiệu ngắn về CAM CAM */}
-      <AboutSection />
-
       {/* 3. Sản phẩm nổi bật (5 best seller items) */}
       <FeaturedProducts items={content.featured.items} />
 
@@ -67,9 +58,6 @@ export default async function LandingPage({ params }: PageProps) {
 
       {/* 5. Không gian và câu chuyện thương hiệu */}
       <StorySection bgImage={content.story.bgImage} />
-
-      {/* 6. Lý do nên chọn CAM CAM */}
-      <BenefitsSection />
 
       {/* Map & Contact Info Section */}
       <MapSection />
@@ -88,7 +76,7 @@ export default async function LandingPage({ params }: PageProps) {
         </div>
         <div className="absolute inset-0 bg-paper-warm/85 z-5" />
         
-        <div className="max-w-xl mx-auto relative z-10 w-full">
+        <div className="max-w-6xl mx-auto relative z-10 w-full">
           <LeadForm campaignName={content.campaignName} />
         </div>
       </section>
