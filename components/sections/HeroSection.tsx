@@ -34,7 +34,7 @@ const DRINK_DATA: DrinkItem[] = [
     imageUrl: "/images/item/ca_phe_muoi.png",
     ingredients: ["Robusta hạt mộc rang tay", "Sữa đặc béo", "Kem sữa mặn độc quyền", "Muối biển hồng tinh khiết"],
     ingredientsEn: ["Hand-roasted Robusta", "Sweet Condensed Milk", "Signature Savory Foam", "Pure Pink Sea Salt"],
-    bgColor: "#FAF6EC" // Soft warm beige (Default)
+    bgColor: "#EFE6D5" // Darker warm latte cream
   },
   {
     id: "hero2",
@@ -48,7 +48,7 @@ const DRINK_DATA: DrinkItem[] = [
     imageUrl: "/images/item/matcha_latte.png",
     ingredients: ["Bột Matcha Uji Nhật Bản", "Sữa tươi thanh trùng", "Kem sữa béo nhẹ", "Hạnh nhân nướng lát"],
     ingredientsEn: ["Japanese Uji Matcha", "Pasteurized Fresh Milk", "Light Creamy Foam", "Toasted Almond Slices"],
-    bgColor: "#E5ECE5" // Muted pastel matcha green
+    bgColor: "#D1DFD1" // Darker pastel matcha green
   },
   {
     id: "hero3",
@@ -62,7 +62,7 @@ const DRINK_DATA: DrinkItem[] = [
     imageUrl: "/images/item/Tra_Blao_com_non_yen_mach.png",
     ingredients: ["Trà lài Bảo Lộc ủ lạnh", "Cốm non tươi dẻo bùi", "Yến mạch hữu cơ", "Sữa tươi béo ngậy"],
     ingredientsEn: ["Cold-brewed Jasmine Tea", "Chewy Young Green Rice", "Organic Rolled Oats", "Creamy Fresh Milk"],
-    bgColor: "#ECE8E0" // Soft creamy taro beige
+    bgColor: "#DFD8CC" // Darker taro cream beige
   },
   {
     id: "hero4",
@@ -76,7 +76,7 @@ const DRINK_DATA: DrinkItem[] = [
     imageUrl: "/images/item/tra_sen_vang.png",
     ingredients: ["Trà ô long Lâm Đồng chát dịu", "Hạt sen ninh đường phèn", "Củ năng giòn sần sật", "Kem sữa mặn béo ngậy"],
     ingredientsEn: ["Lâm Đồng Oolong Tea", "Caramelized Lotus Seeds", "Crunchy Water Chestnut", "Salted Cream Foam"],
-    bgColor: "#F5EDE7" // Soft warm peach amber
+    bgColor: "#ECDCD0" // Darker peach oolong beige
   }
 ];
 
@@ -198,7 +198,7 @@ export function HeroSection() {
           
           {/* Left/Center Column: Drink Carousel (Columns 1-7) */}
           {/* Increased container height to accommodate larger cup sizes on all viewports */}
-          <div className="lg:col-span-7 flex flex-col items-center justify-center relative w-full h-[450px] md:h-[580px] overflow-visible">
+          <div className="lg:col-span-7 flex flex-col items-center justify-center relative w-full h-[520px] md:h-[680px] overflow-visible">
             <div className="relative w-full h-full flex items-center justify-center">
               {DRINK_DATA.map((drink, idx) => {
                 const pos = getPositionClass(idx);
@@ -207,24 +207,24 @@ export function HeroSection() {
                     key={drink.id}
                     className={cn(
                       "absolute transition-all duration-700 cubic-bezier(0.16, 1, 0.3, 1) transform flex flex-col items-center justify-center",
-                      // Center active cup is 1.35x scale (2x larger than side cups relative size)
-                      pos === "center" && "translate-x-0 scale-[1.35] md:scale-[1.4] z-30 opacity-100 pointer-events-auto",
-                      // Side cups are scaled down to 0.7x, pushed further apart to prevent overlap, and blurred
-                      pos === "left" && "-translate-x-[75%] md:-translate-x-[90%] scale-[0.7] z-10 opacity-30 blur-[0.5px] pointer-events-none",
-                      pos === "right" && "translate-x-[75%] md:translate-x-[90%] scale-[0.7] z-10 opacity-30 blur-[0.5px] pointer-events-none",
+                      // Center active cup is scale-[1.35], side cups are scale-[0.65] (giving active cup 2x size ratio)
+                      pos === "center" && "translate-x-0 scale-[1.3] md:scale-[1.35] z-30 opacity-100 pointer-events-auto",
+                      // Side cups are scaled down, pushed further apart to prevent overlap, and blurred
+                      pos === "left" && "-translate-x-[70%] md:-translate-x-[85%] scale-[0.6] md:scale-[0.65] z-10 opacity-30 blur-[0.5px] pointer-events-none",
+                      pos === "right" && "translate-x-[70%] md:translate-x-[85%] scale-[0.6] md:scale-[0.65] z-10 opacity-30 blur-[0.5px] pointer-events-none",
                       pos === "hidden" && "scale-50 opacity-0 z-0 pointer-events-none"
                     )}
                   >
                     {/* Glowing aura sparkles behind the active center drink */}
                     {pos === "center" && <div className="aura-sparkle opacity-90 scale-95" />}
                     
-                    {/* Larger Drink Cup Image (Up 1.5x from previous size) */}
-                    <div className="relative w-[180px] h-[260px] md:w-[260px] md:h-[370px] flex items-center justify-center z-10">
+                    {/* Larger Drink Cup Image (Up 1.5x to 2x from previous size) */}
+                    <div className="relative w-[230px] h-[320px] md:w-[350px] md:h-[480px] flex items-center justify-center z-10">
                       <Image
                         src={drink.imageUrl}
                         alt={drink.name}
                         fill
-                        sizes="(max-width: 768px) 180px, 260px"
+                        sizes="(max-width: 768px) 230px, 350px"
                         // All cups float gently up and down by default
                         className="object-contain drop-shadow-[0_15px_30px_rgba(47,36,28,0.22)] animate-float-gentle"
                         priority={idx === 0}
