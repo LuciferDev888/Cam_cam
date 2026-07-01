@@ -163,6 +163,18 @@ body {
   animation: floatSway 6s ease-in-out infinite;
 }
 
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.animate-float-gentle {
+  animation: floatGentle 5s ease-in-out infinite;
+}
+
 /* ===== Menu Item Entry Animation (1.5s Fade-In Slide-Up) ===== */
 @keyframes menuItemFadeIn {
   0% {

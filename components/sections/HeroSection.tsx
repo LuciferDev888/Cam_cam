@@ -18,6 +18,7 @@ interface DrinkItem {
   imageUrl: string;
   ingredients: string[];
   ingredientsEn: string[];
+  bgColor: string; // Dynamic background color for each drink
 }
 
 const DRINK_DATA: DrinkItem[] = [
@@ -32,7 +33,8 @@ const DRINK_DATA: DrinkItem[] = [
     descriptionEn: "Rich traditional drip Robusta coffee harmoniously blended with CAM CAM's signature smooth and savory salted cream foam.",
     imageUrl: "/images/item/ca_phe_muoi.png",
     ingredients: ["Robusta hạt mộc rang tay", "Sữa đặc béo", "Kem sữa mặn độc quyền", "Muối biển hồng tinh khiết"],
-    ingredientsEn: ["Hand-roasted Robusta", "Sweet Condensed Milk", "Signature Savory Foam", "Pure Pink Sea Salt"]
+    ingredientsEn: ["Hand-roasted Robusta", "Sweet Condensed Milk", "Signature Savory Foam", "Pure Pink Sea Salt"],
+    bgColor: "#FAF6EC" // Soft warm beige (Default)
   },
   {
     id: "hero2",
@@ -45,7 +47,8 @@ const DRINK_DATA: DrinkItem[] = [
     descriptionEn: "Premium Japanese Uji matcha whisked with pasteurized fresh milk, preserving its vibrant natural green hue and rich earthy taste.",
     imageUrl: "/images/item/matcha_latte.png",
     ingredients: ["Bột Matcha Uji Nhật Bản", "Sữa tươi thanh trùng", "Kem sữa béo nhẹ", "Hạnh nhân nướng lát"],
-    ingredientsEn: ["Japanese Uji Matcha", "Pasteurized Fresh Milk", "Light Creamy Foam", "Toasted Almond Slices"]
+    ingredientsEn: ["Japanese Uji Matcha", "Pasteurized Fresh Milk", "Light Creamy Foam", "Toasted Almond Slices"],
+    bgColor: "#E5ECE5" // Muted pastel matcha green
   },
   {
     id: "hero3",
@@ -58,7 +61,8 @@ const DRINK_DATA: DrinkItem[] = [
     descriptionEn: "Jasmine-infused Blao tea blended with milk, combined with chewy young green rice grains and rich organic rolled oats.",
     imageUrl: "/images/item/Tra_Blao_com_non_yen_mach.png",
     ingredients: ["Trà lài Bảo Lộc ủ lạnh", "Cốm non tươi dẻo bùi", "Yến mạch hữu cơ", "Sữa tươi béo ngậy"],
-    ingredientsEn: ["Cold-brewed Jasmine Tea", "Chewy Young Green Rice", "Organic Rolled Oats", "Creamy Fresh Milk"]
+    ingredientsEn: ["Cold-brewed Jasmine Tea", "Chewy Young Green Rice", "Organic Rolled Oats", "Creamy Fresh Milk"],
+    bgColor: "#ECE8E0" // Soft creamy taro beige
   },
   {
     id: "hero4",
@@ -71,7 +75,8 @@ const DRINK_DATA: DrinkItem[] = [
     descriptionEn: "Rich Oolong tea served with sweet caramelized lotus seeds, crunchy water chestnut cubes, and thick salted cream foam.",
     imageUrl: "/images/item/tra_sen_vang.png",
     ingredients: ["Trà ô long Lâm Đồng chát dịu", "Hạt sen ninh đường phèn", "Củ năng giòn sần sật", "Kem sữa mặn béo ngậy"],
-    ingredientsEn: ["Lâm Đồng Oolong Tea", "Caramelized Lotus Seeds", "Crunchy Water Chestnut", "Salted Cream Foam"]
+    ingredientsEn: ["Lâm Đồng Oolong Tea", "Caramelized Lotus Seeds", "Crunchy Water Chestnut", "Salted Cream Foam"],
+    bgColor: "#F5EDE7" // Soft warm peach amber
   }
 ];
 
@@ -84,15 +89,19 @@ export function HeroSection() {
   const [displayIndex, setDisplayIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Transition Helper (animates card fade out, swaps details, then fades card back in)
+  // Transition Helper (instant cup slide update, rapid details transition)
   const triggerTransition = useCallback((nextIndex: number) => {
     if (isTransitioning || nextIndex === activeIndex) return;
+    
+    // Update activeIndex immediately for lag-free sliding action
+    setActiveIndex(nextIndex);
+    
+    // Quick fade update for card text
     setIsTransitioning(true);
     setTimeout(() => {
-      setActiveIndex(nextIndex);
       setDisplayIndex(nextIndex);
       setIsTransitioning(false);
-    }, 350);
+    }, 180);
   }, [activeIndex, isTransitioning]);
 
   const handleNext = () => {
@@ -120,6 +129,9 @@ export function HeroSection() {
   };
 
   const activeDrink = DRINK_DATA[displayIndex] || DRINK_DATA[0];
+  // Background transition matches the currently selected drink's index instantly
+  const transitionBgColor = DRINK_DATA[activeIndex]?.bgColor || "#FAF6EC";
+
   const activeName = lang === "vi" ? activeDrink.name : activeDrink.nameEn;
   const activeDesc = lang === "vi" ? activeDrink.description : activeDrink.descriptionEn;
   const activeBadge = lang === "vi" ? activeDrink.badge : activeDrink.badgeEn;
@@ -137,18 +149,19 @@ export function HeroSection() {
     <section
       ref={ref}
       id="trang-chu"
-      className="relative pt-32 pb-24 md:py-36 px-4 overflow-hidden min-h-screen flex items-center bg-paper-warm"
+      className="relative pt-32 pb-24 md:py-36 px-4 overflow-hidden min-h-screen flex items-center transition-colors duration-1000 ease-in-out"
+      style={{ backgroundColor: transitionBgColor }}
     >
-      {/* Background Banner Pattern & Overlay */}
+      {/* Background Vintage Texture - Opacity reduced and blended cleanly over dynamic colors */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/background/background_hero.png"
           alt="CAM CAM Vintage Coffee Banner"
           fill
           priority
-          className="object-cover object-center"
+          className="object-cover object-center opacity-[0.16] mix-blend-multiply"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#F4EFDC]/95 via-[#F4EFDC]/80 to-[#F4EFDC]/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#FAF6EC]/15 via-transparent to-[#FAF6EC]/5 pointer-events-none" />
       </div>
 
       {/* Sensory Steam Smoke Effects behind the cup carousel */}
@@ -184,7 +197,8 @@ export function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center">
           
           {/* Left/Center Column: Drink Carousel (Columns 1-7) */}
-          <div className="lg:col-span-7 flex flex-col items-center justify-center relative w-full h-[380px] md:h-[480px]">
+          {/* Increased container height to accommodate larger cup sizes on all viewports */}
+          <div className="lg:col-span-7 flex flex-col items-center justify-center relative w-full h-[450px] md:h-[580px] overflow-visible">
             <div className="relative w-full h-full flex items-center justify-center">
               {DRINK_DATA.map((drink, idx) => {
                 const pos = getPositionClass(idx);
@@ -192,27 +206,27 @@ export function HeroSection() {
                   <div
                     key={drink.id}
                     className={cn(
-                      "absolute transition-all duration-700 ease-out transform flex flex-col items-center justify-center",
-                      pos === "center" && "translate-x-0 scale-100 z-30 opacity-100 pointer-events-auto",
-                      pos === "left" && "-translate-x-[35%] md:-translate-x-[40%] scale-70 z-10 opacity-30 blur-[1px] pointer-events-none",
-                      pos === "right" && "translate-x-[35%] md:translate-x-[40%] scale-70 z-10 opacity-30 blur-[1px] pointer-events-none",
+                      "absolute transition-all duration-700 cubic-bezier(0.16, 1, 0.3, 1) transform flex flex-col items-center justify-center",
+                      // Center active cup is 1.35x scale (2x larger than side cups relative size)
+                      pos === "center" && "translate-x-0 scale-[1.35] md:scale-[1.4] z-30 opacity-100 pointer-events-auto",
+                      // Side cups are scaled down to 0.7x, pushed further apart to prevent overlap, and blurred
+                      pos === "left" && "-translate-x-[75%] md:-translate-x-[90%] scale-[0.7] z-10 opacity-30 blur-[0.5px] pointer-events-none",
+                      pos === "right" && "translate-x-[75%] md:translate-x-[90%] scale-[0.7] z-10 opacity-30 blur-[0.5px] pointer-events-none",
                       pos === "hidden" && "scale-50 opacity-0 z-0 pointer-events-none"
                     )}
                   >
-                    {/* Glowing aura sparkles always behind the active drink */}
+                    {/* Glowing aura sparkles behind the active center drink */}
                     {pos === "center" && <div className="aura-sparkle opacity-90 scale-95" />}
                     
-                    {/* Drink Cup Image */}
+                    {/* Larger Drink Cup Image (Up 1.5x from previous size) */}
                     <div className="relative w-[180px] h-[260px] md:w-[260px] md:h-[370px] flex items-center justify-center z-10">
                       <Image
                         src={drink.imageUrl}
                         alt={drink.name}
                         fill
                         sizes="(max-width: 768px) 180px, 260px"
-                        className={cn(
-                          "object-contain drop-shadow-[0_15px_30px_rgba(47,36,28,0.22)]",
-                          pos === "center" && "animate-float-sway"
-                        )}
+                        // All cups float gently up and down by default
+                        className="object-contain drop-shadow-[0_15px_30px_rgba(47,36,28,0.22)] animate-float-gentle"
                         priority={idx === 0}
                       />
                     </div>
@@ -245,7 +259,7 @@ export function HeroSection() {
               {/* Transition details contents */}
               <div
                 className={cn(
-                  "transition-all duration-350 transform space-y-6 flex-grow flex flex-col justify-between",
+                  "transition-all duration-300 transform space-y-6 flex-grow flex flex-col justify-between",
                   isTransitioning
                     ? "opacity-0 translate-x-4 scale-98"
                     : "opacity-100 translate-x-0 scale-100"
