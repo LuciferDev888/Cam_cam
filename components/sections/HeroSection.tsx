@@ -90,6 +90,14 @@ export function HeroSection() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const handleScrollToContact = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const contactSection = document.querySelector("#lien-he");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
@@ -145,22 +153,95 @@ export function HeroSection() {
   const activeBadge = lang === "vi" ? activeDrink.badge : activeDrink.badgeEn;
   const activeIngredients = lang === "vi" ? activeDrink.ingredients : activeDrink.ingredientsEn;
 
-  const handleScrollToContact = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const contactSection = document.querySelector("#lien-he");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+  const renderDetailsCard = () => {
+    return (
+      <div className="w-full max-w-[400px] bg-paper-warm/90 border border-border-taupe/35 shadow-vintage-lg rounded-3xl p-6 md:p-8 flex flex-col justify-between space-y-6 relative overflow-hidden backdrop-blur-md">
+        {/* Corner Ornaments */}
+        <div className="absolute top-3 left-3 w-4 h-4 border-t border-l border-border-taupe/30"></div>
+        <div className="absolute top-3 right-3 w-4 h-4 border-t border-r border-border-taupe/30"></div>
+        <div className="absolute bottom-3 left-3 w-4 h-4 border-b border-l border-border-taupe/30"></div>
+        <div className="absolute bottom-3 right-3 w-4 h-4 border-b border-r border-border-taupe/30"></div>
+
+        {/* Transition details contents */}
+        <div
+          className={cn(
+            "transition-all duration-300 transform space-y-6 flex-grow flex flex-col justify-between",
+            isTransitioning
+              ? "opacity-0 translate-x-4 scale-98"
+              : "opacity-100 translate-x-0 scale-100"
+          )}
+        >
+          {/* Top Badge and Counter */}
+          <div className="flex justify-between items-center relative z-10">
+            <span className="text-[10px] font-bold tracking-widest uppercase text-olive-primary border border-olive-primary/25 px-2.5 py-1 rounded-md bg-olive-primary/5">
+              {activeBadge}
+            </span>
+            <span className="text-sm font-serif font-black text-olive-primary/80">
+              0{displayIndex + 1}
+            </span>
+          </div>
+
+          {/* Name and Description */}
+          <div className="space-y-3">
+            <h1 className="text-2xl md:text-3xl font-serif font-black text-espresso-dark leading-tight uppercase tracking-tight">
+              {activeName}
+            </h1>
+            {/* Fixed height description to prevent card wiggling */}
+            <div className="min-h-[64px] flex items-center">
+              <p className="text-taupe-gray text-xs md:text-sm leading-relaxed font-sans font-medium">
+                {activeDesc}
+              </p>
+            </div>
+          </div>
+
+          {/* Price Display */}
+          <div className="border-t border-b border-border-taupe/20 py-3 flex items-center justify-between">
+            <span className="text-xs font-bold uppercase tracking-wider text-espresso-dark/70 font-sans">
+              {lang === "vi" ? "Giá chuẩn" : "Standard Price"}
+            </span>
+            <span className="text-2xl font-serif font-black text-olive-primary">
+              {activeDrink.price}
+            </span>
+          </div>
+
+          {/* Ingredients Bullets list */}
+          <div className="space-y-2">
+            <span className="text-[10px] font-bold tracking-wider uppercase text-espresso-dark/60 block font-sans">
+              {lang === "vi" ? "THÀNH PHẦN CHÍNH" : "MAIN INGREDIENTS"}
+            </span>
+            <ul className="space-y-1.5 pl-1.5">
+              {activeIngredients.map((ing, iIdx) => (
+                <li key={iIdx} className="text-xs font-sans font-semibold text-taupe-gray flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-olive-primary shrink-0" />
+                  {ing}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Primary CTA Action Button */}
+          <div className="pt-2">
+            <a
+              href="#lien-he"
+              onClick={handleScrollToContact}
+              className="w-full text-center py-3.5 bg-olive-primary hover:bg-moss-dark text-paper-warm font-sans font-bold text-xs uppercase tracking-widest rounded-xl shadow-vintage-sm hover:shadow-vintage-md hover:-translate-y-0.5 transition-all duration-300 block"
+            >
+              {lang === "vi" ? "Đặt Trải Nghiệm Ngay" : "Book a Table"}
+            </a>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
     <section
       ref={ref}
       id="trang-chu"
-      className="relative pt-32 pb-24 md:py-36 px-4 overflow-hidden min-h-screen flex items-center transition-colors duration-1000 ease-in-out"
+      className="relative pt-24 pb-12 lg:pt-28 lg:pb-16 px-4 overflow-hidden min-h-screen flex items-center transition-colors duration-1000 ease-in-out"
       style={{ backgroundColor: transitionBgColor }}
     >
-      {/* Background Vintage Texture - Opacity reduced and blended cleanly over dynamic colors */}
+      {/* Background Vintage Texture */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/background/background_hero.png"
@@ -173,7 +254,7 @@ export function HeroSection() {
       </div>
 
       {/* Sensory Steam Smoke Effects behind the cup carousel */}
-      <div className="absolute left-0 lg:left-[10%] top-0 bottom-0 w-full lg:w-1/2 z-[5] pointer-events-none overflow-hidden">
+      <div className="absolute left-0 lg:left-1/2 lg:-translate-x-1/2 top-0 bottom-0 w-full lg:w-1/2 z-[5] pointer-events-none overflow-hidden">
         <div
           className="absolute left-[35%] bottom-[25%] w-24 h-64 rounded-full opacity-40"
           style={{
@@ -201,14 +282,14 @@ export function HeroSection() {
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10 w-full">
-        {/* Main Grid Layout - Cups Carousel Left/Center, details card on Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center">
+        {/* Main Grid Layout - Cups Carousel Centered */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center relative">
           
-          {/* Left/Center Column: Drink Carousel (Columns 1-7) */}
+          {/* Centered Column: Drink Carousel (Columns 1-12 on desktop for horizontal centering) */}
           {/* Increased container height to accommodate larger cup sizes on all viewports */}
           <div
             className={cn(
-              "lg:col-span-7 flex flex-col items-center justify-center relative w-full h-[520px] md:h-[680px] overflow-visible transition-all duration-[2000ms] ease-out transform",
+              "col-span-1 lg:col-span-12 flex flex-col items-center justify-center relative w-full h-[580px] md:h-[680px] lg:h-[760px] overflow-visible transition-all duration-[2000ms] ease-out transform z-10",
               isLoaded ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-16 scale-95"
             )}
           >
@@ -232,23 +313,23 @@ export function HeroSection() {
                     {pos === "center" && <div className="aura-sparkle opacity-90 scale-95" />}
                     
                     {/* Larger Drink Cup Image (Up 1.5x to 2x from previous size) */}
-                    <div className="relative w-[230px] h-[320px] md:w-[350px] md:h-[480px] flex items-center justify-center z-10">
+                    <div className="relative w-[345px] h-[480px] md:w-[525px] md:h-[720px] flex items-center justify-center z-10">
                       <Image
                         src={drink.imageUrl}
                         alt={drink.name}
                         fill
-                        sizes="(max-width: 768px) 230px, 350px"
+                        sizes="(max-width: 768px) 345px, 525px"
                         // All cups float gently up and down by default
                         className="object-contain drop-shadow-[0_15px_30px_rgba(47,36,28,0.22)] animate-float-gentle"
                         priority={idx === 0}
                       />
                     </div>
 
-                    {/* "Món tiếp theo" (Next Drink) Button superimposed below center cup */}
+                    {/* "Món tiếp theo" (Next Drink) Button superimposed on the active cup to save vertical height */}
                     {pos === "center" && (
                       <button
                         onClick={handleNext}
-                        className="mt-6 px-6 py-2.5 bg-olive-primary/90 hover:bg-olive-primary text-paper-warm font-sans font-bold text-xs uppercase tracking-widest rounded-full shadow-vintage-sm hover:shadow-vintage-md hover:scale-105 transition-all duration-300 flex items-center gap-1.5 z-40"
+                        className="absolute bottom-8 md:bottom-12 px-6 py-2.5 bg-olive-primary/95 hover:bg-olive-primary text-paper-warm font-sans font-bold text-xs uppercase tracking-widest rounded-full shadow-vintage-sm hover:shadow-vintage-md hover:scale-105 transition-all duration-300 flex items-center gap-1.5 z-40"
                       >
                         {lang === "vi" ? "Món tiếp theo" : "Next Drink"}
                       </button>
@@ -259,94 +340,28 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column: Drink Details Card (Columns 8-12) */}
+          {/* Mobile/Tablet Card Layout (rendered inside the grid flow on mobile/tablet) */}
           <div
             className={cn(
-              "lg:col-span-5 flex justify-center transition-all duration-[2000ms] ease-out transform delay-100",
+              "col-span-1 lg:hidden flex justify-center transition-all duration-[2000ms] ease-out transform delay-100 w-full mt-8",
               isLoaded ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-16 scale-95"
             )}
           >
-            <div className="w-full max-w-[400px] bg-[#FAF7F0] border border-border-taupe/35 shadow-vintage-lg rounded-3xl p-6 md:p-8 flex flex-col justify-between space-y-6 relative overflow-hidden bg-paper-warm/45 backdrop-blur-sm">
-              
-              {/* Corner Ornaments */}
-              <div className="absolute top-3 left-3 w-4 h-4 border-t border-l border-border-taupe/30"></div>
-              <div className="absolute top-3 right-3 w-4 h-4 border-t border-r border-border-taupe/30"></div>
-              <div className="absolute bottom-3 left-3 w-4 h-4 border-b border-l border-border-taupe/30"></div>
-              <div className="absolute bottom-3 right-3 w-4 h-4 border-b border-r border-border-taupe/30"></div>
-
-              {/* Transition details contents */}
-              <div
-                className={cn(
-                  "transition-all duration-300 transform space-y-6 flex-grow flex flex-col justify-between",
-                  isTransitioning
-                    ? "opacity-0 translate-x-4 scale-98"
-                    : "opacity-100 translate-x-0 scale-100"
-                )}
-              >
-                {/* Top Badge and Counter */}
-                <div className="flex justify-between items-center relative z-10">
-                  <span className="text-[10px] font-bold tracking-widest uppercase text-olive-primary border border-olive-primary/25 px-2.5 py-1 rounded-md bg-olive-primary/5">
-                    {activeBadge}
-                  </span>
-                  <span className="text-sm font-serif font-black text-olive-primary/80">
-                    0{displayIndex + 1}
-                  </span>
-                </div>
-
-                {/* Name and Description */}
-                <div className="space-y-3">
-                  <h1 className="text-2xl md:text-3xl font-serif font-black text-espresso-dark leading-tight uppercase tracking-tight">
-                    {activeName}
-                  </h1>
-                  {/* Fixed height description to prevent card wiggling */}
-                  <div className="min-h-[64px] flex items-center">
-                    <p className="text-taupe-gray text-xs md:text-sm leading-relaxed font-sans font-medium">
-                      {activeDesc}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Price Display */}
-                <div className="border-t border-b border-border-taupe/20 py-3 flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-espresso-dark/70 font-sans">
-                    {lang === "vi" ? "Giá chuẩn" : "Standard Price"}
-                  </span>
-                  <span className="text-2xl font-serif font-black text-olive-primary">
-                    {activeDrink.price}
-                  </span>
-                </div>
-
-                {/* Ingredients Bullets list */}
-                <div className="space-y-2">
-                  <span className="text-[10px] font-bold tracking-wider uppercase text-espresso-dark/60 block font-sans">
-                    {lang === "vi" ? "THÀNH PHẦN CHÍNH" : "MAIN INGREDIENTS"}
-                  </span>
-                  <ul className="space-y-1.5 pl-1.5">
-                    {activeIngredients.map((ing, iIdx) => (
-                      <li key={iIdx} className="text-xs font-sans font-semibold text-taupe-gray flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-olive-primary shrink-0" />
-                        {ing}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Primary CTA Action Button */}
-                <div className="pt-2">
-                  <a
-                    href="#lien-he"
-                    onClick={handleScrollToContact}
-                    className="w-full text-center py-3.5 bg-olive-primary hover:bg-moss-dark text-paper-warm font-sans font-bold text-xs uppercase tracking-widest rounded-xl shadow-vintage-sm hover:shadow-vintage-md hover:-translate-y-0.5 transition-all duration-300 block"
-                  >
-                    {lang === "vi" ? "Đặt Trải Nghiệm Ngay" : "Book a Table"}
-                  </a>
-                </div>
-
-              </div>
-
-            </div>
+            {renderDetailsCard()}
           </div>
 
+        </div>
+      </div>
+
+      {/* Desktop Card Layout (positioned absolute to the section for far-right screen placement) */}
+      <div className="hidden lg:block absolute right-8 lg:right-12 xl:right-16 top-1/2 -translate-y-1/2 z-[35] w-[400px]">
+        <div
+          className={cn(
+            "w-full transition-all duration-[2000ms] ease-out transform delay-100",
+            isLoaded ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-16 scale-95"
+          )}
+        >
+          {renderDetailsCard()}
         </div>
       </div>
     </section>
